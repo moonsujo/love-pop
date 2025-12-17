@@ -1,0 +1,41 @@
+load bubble
+aim
+  left or right keyboard
+  mouse position, take difference between mouse position and bottom center of box
+press shoot - input handler
+  space bar
+  left mouse click
+shoot_bubble function
+on every frame
+update bubble_pos according to direction
+if bubble_center.x - bubble_radius < left wall then
+   reverse x velocity
+if bubble_center.x + bubble_radius > right wall then
+   reverse x velocity
+for every bubble_outstanding in the level
+  if distance between bubble and bubble_outstanding < sum of radii then
+    if position.x is left of the bubble_outstanding_pos.x
+      attach to the left
+    else
+      attach to the right
+    # edge case: when bubble hits the top wall
+    # add a row of bubbles that can't be popped
+    # add transparency to hide it
+    check for clusters of 3 or more same color bubbles
+      if found
+        pop them
+        for every bubble neighboring the popped bubbles
+          DFS (recursion)
+          if bubble is not neighboring any other bubble
+          drop them
+        if bubble_outstanding is empty
+          end game - win
+      if not
+        if x turns passed
+          lower all bubbles by one row
+        if any bubble crosses bottom line
+          end game - lose
+loop
+
+data structure: 2D array
+even row, odd row
