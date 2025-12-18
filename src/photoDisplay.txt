@@ -1,0 +1,7 @@
+pop bubble
+play firework
+spring-animate photo from bubble to background
+  make box transparent to show photo behind it
+num_bubbles should fill num_photos
+  adjust box_width to control num_bubbles
+  how many photos can fit in the background?

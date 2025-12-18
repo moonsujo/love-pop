@@ -3,6 +3,7 @@ import Level from "./Level";
 import Lights from "./Lights";
 import { Perf } from "r3f-perf";
 import Shooter from "./Shooter";
+import Photos from "./Photos";
 
 export default function Experience() {
 
@@ -10,8 +11,6 @@ export default function Experience() {
   // algorithm
   // UI
 
-  // goal today: detect user input, shoot bubble across the box
-  
   return <>
     <group name='scene-setup'>
       <OrthographicCamera 
@@ -20,10 +19,13 @@ export default function Experience() {
         position={[0, 0, 5]}
       />
       {/* <OrbitControls/> */}
-      {/* <Perf/> */}
+      {/* <Perf/> */} 
+      <Lights/>
     </group>
-    <Level/>
-    <Lights/>
-    <Shooter/>
+    <group name='scene' scale={1}>
+      <Level/>
+      <Shooter/>
+    </group>
+    {/* <Photos/> */}
   </>
 }

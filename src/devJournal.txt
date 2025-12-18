@@ -1,0 +1,7 @@
+// goal 12/17/25: detect user input, shoot bubble across the box
+// goal: display arrow. move it with keys.
+  should stop at 90 degrees left and right.
+  shoot the ball according to the direction.
+  arrow should stay after shot.
+  bend the ball if it hits the left or the right wall.
+  reset when the ball hits a bubble or the top wall.

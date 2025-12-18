@@ -4,15 +4,19 @@ const bubbleSlice = createSlice({
   name: 'bubble',
   initialState: {
     shot: false,
+    arrowVector: [0, 1, 0]
   },
   reducers: {
     setBubbleShot(state, action) {
       state.shot = action.payload;
+    },
+    setArrowVector(state, action) {
+      state.arrowVector = action.payload;
     }
   }
 })
 
-export const { setBubbleShot } = bubbleSlice.actions;
+export const { setBubbleShot, setArrowVector } = bubbleSlice.actions;
 
 export const selectBubbleShot = (state) => state.bubble.shot;
 
