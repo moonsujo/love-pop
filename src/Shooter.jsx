@@ -63,7 +63,7 @@ export default function Shooter(){
         for (let i = 0; i < bubbles.length; i++) {
           for (let j = 0; j < bubbles[i].length; j++) {
             // check collision with bubble at bubbles[i][j]
-            console.log('checking collision with bubble at', i, j)
+            
           }
         }
         if (collision) {

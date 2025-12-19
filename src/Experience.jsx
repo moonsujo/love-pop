@@ -22,7 +22,7 @@ export default function Experience() {
       <Perf/> 
       <Lights/>
     </group>
-    <group name='scene' scale={1}>
+    <group name='scene' scale={1.5}>
       <Level/>
       <Shooter/>
     </group>

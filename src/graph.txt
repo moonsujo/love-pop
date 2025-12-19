@@ -1,0 +1,19 @@
+o o o o o
+ o o o o
+o o o o o
+ o o o o
+
+rearrange like this
+o o o o o
+o o o o   <-
+o o o o o
+o o o o
+
+if row is even, draw a backward k
+if row is odd, draw a k
+
+check >=3 group using graph traversal
+
+ball schema
+  photo
+  color
