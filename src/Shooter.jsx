@@ -4,6 +4,8 @@ import { useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setBubbleShot, setArrowVector } from "./store/slices/bubbleSlice"
 import { BOX_WIDTH, BOX_HEIGHT, BUBBLE_RADIUS } from "./constants"
+import { bubbleMaterial, sphereGeometry } from "./Optimizations"
+import { RigidBody } from "@react-three/rapier"
 
 export default function Shooter(){
 
@@ -40,42 +42,27 @@ export default function Shooter(){
     // if bubble flying = true, move bubble up the screen
     // if bubble flying = false, reset bubble position to shooter
     if (bubbleShot) {
-      console.log("MOVING BUBBLE UP", arrowVector)
-      bubble.current.position.x += arrowVector[0] * 0.5
-      bubble.current.position.y += arrowVector[1] * 0.5
-      // bubble.current.position.y += 0.5
-      // if (bubble.current.position.y > BOX_HEIGHT / 2) { 
-      //   dispatch(setBubbleShot(false))
-      // }
-      const leftBoundary = -BOX_WIDTH / 2
-      const rightBoundary = BOX_WIDTH / 2
-      const leftBoundaryCollision = bubble.current.position.x - BUBBLE_RADIUS < leftBoundary
-      const rightBoundaryCollision = bubble.current.position.x + BUBBLE_RADIUS > rightBoundary
-      const topBoundaryCollision = bubble.current.position.y + BUBBLE_RADIUS > BOX_HEIGHT / 2
-      if (leftBoundaryCollision || rightBoundaryCollision) {
-        // change direction
-        dispatch(setArrowVector([arrowVector[0] * -1, arrowVector[1], 0]))
-      } else if (topBoundaryCollision) {
-        // reset bubble
-        dispatch(setBubbleShot(false))
-      } else {
-        const collision = false // other bubble 
-        for (let i = 0; i < bubbles.length; i++) {
-          for (let j = 0; j < bubbles[i].length; j++) {
-            // check collision with bubble at bubbles[i][j]
-            
-          }
-        }
-        if (collision) {
-          dispatch(setBubbleShot(false))
-        }
-      }
-      // add to an array
+      bubble.current.setNextKinematicTranslation({ 
+        x: bubble.current.translation().x + arrowVector[0] * 0.5, 
+        y: bubble.current.translation().y + arrowVector[1] * 0.5, 
+        z: bubble.current.translation().z 
+      })
+
+        // collision with left wall
+        // collision with right wall
+        // collision with top wall
+        // collision with another ball
+        
+        // dispatch(setArrowVector([arrowVector[0] * -1, arrowVector[1], 0]))
+        // dispatch(setBubbleShot(false))
+
     } else {
       // reset bubble position to shooter
-      bubble.current.position.x = bubbleOrigin[0]
-      bubble.current.position.y = bubbleOrigin[1]
-      bubble.current.position.z = bubbleOrigin[2]
+      bubble.current.setNextKinematicTranslation({ 
+        x: bubbleOrigin[0], 
+        y: bubbleOrigin[1], 
+        z: bubbleOrigin[2] 
+      })
 
       // turn arrow left or right
       const { left, right } = getKeys()
@@ -115,11 +102,18 @@ export default function Shooter(){
     </group>
   }
   
+  function collisionEnter() {
+    console.log("COLLISION DETECTED")
+    dispatch(setBubbleShot(false))
+  }
+  
   return <>
-    <mesh ref={bubble} position={bubbleOrigin}>
-        <sphereGeometry />
-        <meshStandardMaterial color="hotpink" />
-    </mesh>
+    <RigidBody type="kinematicPosition" colliders="ball" ref={bubble} onCollisionEnter={ collisionEnter }>
+      <mesh 
+        geometry={sphereGeometry} 
+        material={bubbleMaterial}
+      />
+    </RigidBody>
     <group name='arrow' ref={arrow} rotation={[0, 0, 0]} position={bubbleOrigin}>
       <Arrow position={[0, arrowLength / 2, 0]} />
     </group>

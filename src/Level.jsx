@@ -1,6 +1,8 @@
+import { RigidBody, BallCollider } from "@react-three/rapier"
 import { BOX_HEIGHT, BOX_WIDTH, BUBBLE_RADIUS } from "./constants"
 import { useSelector } from "react-redux"
 import * as THREE from 'three'
+import { bubbleMaterial, sphereGeometry } from "./Optimizations"
 
 export default function Level({ scale=1 }) {
 
@@ -8,19 +10,24 @@ export default function Level({ scale=1 }) {
   // 8, 7, 8
   const bubbles = useSelector((state) => state.bubble.bubbles)
 
-  const sphereGeometry = new THREE.SphereGeometry(BUBBLE_RADIUS, 32, 32)
-  const bubbleMaterial = new THREE.MeshStandardMaterial({ color: 'orange' })
-
   return <group scale={scale}>
     { bubbles.map((bubbleRow, rowIndex) => (
       bubbleRow.map((_bubble, index) => {
-        return <mesh 
-        geometry={sphereGeometry}
-        material={bubbleMaterial}
+        return <RigidBody 
+        colliders={false} 
+        gravityScale={0} key={index + '-' + rowIndex}
         position-x={ - (BOX_WIDTH/2) + index * (2 * BUBBLE_RADIUS) + (rowIndex % 2) * BUBBLE_RADIUS + BUBBLE_RADIUS } 
         position-y={ BOX_HEIGHT/2 - BUBBLE_RADIUS - rowIndex * 2 * BUBBLE_RADIUS }
-        key={index}>
-      </mesh>
+
+        >
+          <BallCollider args={ [BUBBLE_RADIUS] } mass={0} />
+          <mesh 
+            geometry={sphereGeometry}
+            material={bubbleMaterial}
+            
+            key={index}>
+          </mesh>
+        </RigidBody>
       })
     ))}
 

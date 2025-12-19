@@ -4,6 +4,7 @@ import Lights from "./Lights";
 import { Perf } from "r3f-perf";
 import Shooter from "./Shooter";
 import Photos from "./Photos";
+import { Physics } from "@react-three/rapier";
 
 export default function Experience() {
 
@@ -18,14 +19,14 @@ export default function Experience() {
         zoom={10}
         position={[0, 0, 5]}
       />
-      {/* <OrbitControls/> */}
+      <OrbitControls/>
       <Perf/> 
       <Lights/>
     </group>
-    <group name='scene' scale={1.5}>
+    <Physics name='scene' debug scale={1}>
       <Level/>
       <Shooter/>
-    </group>
+    </Physics>
     {/* <Photos/> */}
   </>
 }
