@@ -11,7 +11,7 @@ goal: organize balls into a data structure
   add new row when ball enters a new one
   add balls into an array. it alternates even and odd.
 
-goal: detect when ball hits another ball
+// goal: detect when ball hits another ball
 detect which side of the ball the ball hit
 add ball to the store
 detect balls that are connected

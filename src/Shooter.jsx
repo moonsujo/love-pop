@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setBubbleShot, setArrowVector } from "./store/slices/bubbleSlice"
 import { BOX_WIDTH, BOX_HEIGHT, BUBBLE_RADIUS } from "./constants"
+import { bubbleMaterial, sphereGeometry } from "./Optimizations"
 
 export default function Shooter(){
 
@@ -59,11 +60,18 @@ export default function Shooter(){
         // reset bubble
         dispatch(setBubbleShot(false))
       } else {
-        const collision = false // other bubble 
+        let collision = false // other bubble 
         for (let i = 0; i < bubbles.length; i++) {
           for (let j = 0; j < bubbles[i].length; j++) {
             // check collision with bubble at bubbles[i][j]
-            
+            const otherBubble = bubbles[i][j]
+            const dx = bubble.current.position.x - otherBubble.position.x + (BOX_WIDTH / 2) - BUBBLE_RADIUS
+            const dy = bubble.current.position.y - otherBubble.position.y - (BOX_HEIGHT / 2) + BUBBLE_RADIUS
+            const distance = Math.sqrt(dx * dx + dy * dy)
+            if (distance < 2 * BUBBLE_RADIUS) {
+              collision = true
+              break
+            }
           }
         }
         if (collision) {
@@ -116,10 +124,7 @@ export default function Shooter(){
   }
   
   return <>
-    <mesh ref={bubble} position={bubbleOrigin}>
-        <sphereGeometry />
-        <meshStandardMaterial color="hotpink" />
-    </mesh>
+    <mesh ref={bubble} position={bubbleOrigin} geometry={sphereGeometry} material={bubbleMaterial} />
     <group name='arrow' ref={arrow} rotation={[0, 0, 0]} position={bubbleOrigin}>
       <Arrow position={[0, arrowLength / 2, 0]} />
     </group>

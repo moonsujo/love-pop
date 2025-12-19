@@ -8,7 +8,13 @@ for (let i = 0; i < 3; i++) {
   const isEvenRow = i % 2 === 0;
   const bubblesInRow = isEvenRow ? 8 : 7;
   for (let j = 0; j < bubblesInRow; j++) {
-    row.push({ x: j * 2 * BUBBLE_RADIUS + (isEvenRow ? 0 : BUBBLE_RADIUS), y: y });
+    row.push({ 
+      position: {
+        x: j * 2 * BUBBLE_RADIUS + (isEvenRow ? 0 : BUBBLE_RADIUS), 
+        y: -y 
+      },
+      color: 'orange'
+    });
   }
   level0Bubbles.push(row);
 }
