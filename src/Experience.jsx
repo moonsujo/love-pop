@@ -19,7 +19,7 @@ export default function Experience() {
         position={[0, 0, 5]}
       />
       {/* <OrbitControls/> */}
-      {/* <Perf/> */} 
+      <Perf/> 
       <Lights/>
     </group>
     <group name='scene' scale={1}>

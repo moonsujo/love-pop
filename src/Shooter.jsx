@@ -3,13 +3,14 @@ import { useFrame } from "@react-three/fiber"
 import { useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setBubbleShot, setArrowVector } from "./store/slices/bubbleSlice"
-import { BOX_HEIGHT } from "./constants"
+import { BOX_WIDTH, BOX_HEIGHT, BUBBLE_RADIUS } from "./constants"
 
 export default function Shooter(){
 
   const dispatch = useDispatch()
   const bubbleShot = useSelector((state) => state.bubble.shot)
   const arrowVector = useSelector((state) => state.bubble.arrowVector)
+  const bubbles = useSelector((state) => state.bubble.bubbles)
   const [ subscribeKeys, getKeys ] = useKeyboardControls()
   const bubble = useRef()
   const arrow = useRef()
@@ -43,8 +44,31 @@ export default function Shooter(){
       bubble.current.position.x += arrowVector[0] * 0.5
       bubble.current.position.y += arrowVector[1] * 0.5
       // bubble.current.position.y += 0.5
-      if (bubble.current.position.y > BOX_HEIGHT / 2) { 
+      // if (bubble.current.position.y > BOX_HEIGHT / 2) { 
+      //   dispatch(setBubbleShot(false))
+      // }
+      const leftBoundary = -BOX_WIDTH / 2
+      const rightBoundary = BOX_WIDTH / 2
+      const leftBoundaryCollision = bubble.current.position.x - BUBBLE_RADIUS < leftBoundary
+      const rightBoundaryCollision = bubble.current.position.x + BUBBLE_RADIUS > rightBoundary
+      const topBoundaryCollision = bubble.current.position.y + BUBBLE_RADIUS > BOX_HEIGHT / 2
+      if (leftBoundaryCollision || rightBoundaryCollision) {
+        // change direction
+        dispatch(setArrowVector([arrowVector[0] * -1, arrowVector[1], 0]))
+      } else if (topBoundaryCollision) {
+        // reset bubble
         dispatch(setBubbleShot(false))
+      } else {
+        const collision = false // other bubble 
+        for (let i = 0; i < bubbles.length; i++) {
+          for (let j = 0; j < bubbles[i].length; j++) {
+            // check collision with bubble at bubbles[i][j]
+            console.log('checking collision with bubble at', i, j)
+          }
+        }
+        if (collision) {
+          dispatch(setBubbleShot(false))
+        }
       }
       // add to an array
     } else {
@@ -56,12 +80,19 @@ export default function Shooter(){
       // turn arrow left or right
       const { left, right } = getKeys()
       if (left) {
-        arrow.current.rotation.z += 0.02
+        const leftTurnLimit = Math.PI/3
+        if (arrow.current.rotation.z < leftTurnLimit) {
+          arrow.current.rotation.z += 0.02
+        }
       } else if (right) {
-        arrow.current.rotation.z -= 0.02
+        const rightTurnLimit = -Math.PI/3
+        if (arrow.current.rotation.z > rightTurnLimit) {
+          arrow.current.rotation.z -= 0.02
+        }
       }
       // get angle based on rotation
-      const angle = arrow.current.rotation.z + Math.PI / 2
+      const angle = arrow.current.rotation.z + Math.PI / 2 // arrow points up initially
+
       // calculate vector based on angle
       const vectorX = Math.cos(angle)
       const vectorY = Math.sin(angle)

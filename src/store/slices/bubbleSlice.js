@@ -4,7 +4,12 @@ const bubbleSlice = createSlice({
   name: 'bubble',
   initialState: {
     shot: false,
-    arrowVector: [0, 1, 0]
+    arrowVector: [0, 1, 0],
+    bubbles: [
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    ]
   },
   reducers: {
     setBubbleShot(state, action) {

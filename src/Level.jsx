@@ -1,22 +1,18 @@
-import { BOX_HEIGHT, BOX_WIDTH } from "./constants"
+import { BOX_HEIGHT, BOX_WIDTH, BUBBLE_RADIUS } from "./constants"
+import { useSelector } from "react-redux"
 
 export default function Level({ scale=1 }) {
 
   // get bubbles
   // 8, 7, 8
-  const bubbles = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  ] // replace with state selector when implemented
-  const bubbleRadius = 1
+  const bubbles = useSelector((state) => state.bubble.bubbles)
 
   return <group scale={scale}>
     { bubbles.map((bubbleRow, rowIndex) => (
       bubbleRow.map((_bubble, index) => {
         return <mesh 
-        position-x={ - (BOX_WIDTH/2) + index * (2 * bubbleRadius) + (rowIndex % 2) * bubbleRadius + bubbleRadius } 
-        position-y={ BOX_HEIGHT/2 - bubbleRadius - rowIndex * 2 * bubbleRadius }
+        position-x={ - (BOX_WIDTH/2) + index * (2 * BUBBLE_RADIUS) + (rowIndex % 2) * BUBBLE_RADIUS + BUBBLE_RADIUS } 
+        position-y={ BOX_HEIGHT/2 - BUBBLE_RADIUS - rowIndex * 2 * BUBBLE_RADIUS }
         key={index}>
           <sphereGeometry />
           <meshStandardMaterial color="orange" />

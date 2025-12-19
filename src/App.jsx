@@ -1,6 +1,7 @@
 import { Canvas } from '@react-three/fiber'
 import Experience from './Experience'
 import { KeyboardControls } from '@react-three/drei'
+import { Perf } from 'r3f-perf'
 
 function App() {
 

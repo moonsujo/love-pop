@@ -16,7 +16,7 @@
     "@react-three/fiber": "9.4.2",
     "@reduxjs/toolkit": "2.11.2",
     "react-redux": "9.2.0",
-    "r3f-perf": "0.75.0"
+    "r3f-perf": "7.2.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
