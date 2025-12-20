@@ -2,9 +2,9 @@ import { useKeyboardControls } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { setBubbleShot, setArrowVector } from "./store/slices/bubbleSlice"
-import { BOX_WIDTH, BOX_HEIGHT, BUBBLE_RADIUS } from "./constants"
-import { bubbleMaterial, sphereGeometry } from "./Optimizations"
+import { setBubbleShot, setArrowVector, setBubblesLoaded, popBubbles } from "./store/slices/bubbleSlice"
+import { BOX_WIDTH, BOX_HEIGHT, BUBBLE_RADIUS, NUM_BUBBLES_TO_REMOVE } from "./constants"
+import { bubbleMaterials, sphereGeometry } from "./Optimizations"
 
 export default function Shooter(){
 
@@ -12,6 +12,7 @@ export default function Shooter(){
   const bubbleShot = useSelector((state) => state.bubble.shot)
   const arrowVector = useSelector((state) => state.bubble.arrowVector)
   const bubbles = useSelector((state) => state.bubble.bubbles)
+  const bubblesLoaded = useSelector((state) => state.bubble.bubblesLoaded)
   const [ subscribeKeys, getKeys ] = useKeyboardControls()
   const bubble = useRef()
   const arrow = useRef()
@@ -35,19 +36,63 @@ export default function Shooter(){
     }
   }, [])
 
+  function searchMatchingBubblesHelper(row, col, color) {
+    return searchMatchingBubbles(row, col, new Set(), [], color)
+  }
+
+  // Set works with strings; array with elements of equal value are different objects
+  function searchMatchingBubbles(row, col, visited=new Set(), matchingBubbles=[], color) {
+    console.log("SEARCHING:", row, col)
+    // out of bounds
+    if (row < 0 || row >= bubbles.length) return matchingBubbles
+    if (col < 0 || col >= bubbles[row].length) return matchingBubbles
+    
+    const key = `${row},${col}`
+    if (visited.has(key)) return matchingBubbles
+    visited.add(key)
+
+    // DFS to find all connected bubbles of the same color
+    const targetColor = bubbles[row][col].color
+    console.log("TARGET COLOR:", targetColor, "SEARCH COLOR:", color)
+    if (targetColor !== color) return matchingBubbles
+    matchingBubbles.push([row, col])
+
+    const directionsEven = [
+      [-1, 1], [0, 1],
+      [-1, 0], [1, 0],
+      [-1, -1], [0, -1]
+    ]
+
+    const directionsOdd = [
+      [0, 1], [1, 1],
+      [-1, 0], [1, 0],
+      [0, -1], [1, -1]
+    ]
+    
+    if (row % 2 === 0) {
+      for (const [dr, dc] of directionsEven) {
+        const newRow = row + dr
+        const newCol = col + dc
+        searchMatchingBubbles(newRow, newCol, visited, matchingBubbles, color)
+      }
+    } else {
+      for (const [dr, dc] of directionsOdd) {
+        const newRow = row + dr
+        const newCol = col + dc
+        searchMatchingBubbles(newRow, newCol, visited, matchingBubbles, color)
+      }
+    }
+    return matchingBubbles
+  }
+
   const bubbleOrigin = [0, -(BOX_HEIGHT / 2) + 2, 0]
   useFrame(()=>{
-    // update bubble position based on 'bubble flying' state
-    // if bubble flying = true, move bubble up the screen
-    // if bubble flying = false, reset bubble position to shooter
     if (bubbleShot) {
-      console.log("MOVING BUBBLE UP", arrowVector)
+      // move bubble in arrowVector direction
       bubble.current.position.x += arrowVector[0] * 0.5
       bubble.current.position.y += arrowVector[1] * 0.5
-      // bubble.current.position.y += 0.5
-      // if (bubble.current.position.y > BOX_HEIGHT / 2) { 
-      //   dispatch(setBubbleShot(false))
-      // }
+
+      // check for collision with walls or other bubbles
       const leftBoundary = -BOX_WIDTH / 2
       const rightBoundary = BOX_WIDTH / 2
       const leftBoundaryCollision = bubble.current.position.x - BUBBLE_RADIUS < leftBoundary
@@ -57,7 +102,8 @@ export default function Shooter(){
         // change direction
         dispatch(setArrowVector([arrowVector[0] * -1, arrowVector[1], 0]))
       } else if (topBoundaryCollision) {
-        // reset bubble
+        // add bubble to top row
+        // add a 'shadow' row at the top and check collision there
         dispatch(setBubbleShot(false))
       } else {
         let collision = false // other bubble 
@@ -70,6 +116,22 @@ export default function Shooter(){
             const distance = Math.sqrt(dx * dx + dy * dy)
             if (distance < 2 * BUBBLE_RADIUS) {
               collision = true
+              console.log(otherBubble.color, bubblesLoaded[0].color)
+              if (otherBubble.color === bubblesLoaded[0].color) {
+                // check if it's connected to 3 or more bubbles of the same color
+                // remove those bubbles
+                const matchingBubbles = searchMatchingBubblesHelper(i, j, bubblesLoaded[0].color)
+                console.log("MATCHING BUBBLES:", matchingBubbles)
+                if (matchingBubbles.length+1 >= NUM_BUBBLES_TO_REMOVE) {
+                  // remove bubbles
+                  dispatch(popBubbles(matchingBubbles))
+                  // drop bubbles below
+                } else {
+                  // just add the bubble
+                }
+              } else {
+                // just add the bubble
+              }
               break
             }
           }
@@ -124,7 +186,7 @@ export default function Shooter(){
   }
   
   return <>
-    <mesh ref={bubble} position={bubbleOrigin} geometry={sphereGeometry} material={bubbleMaterial} />
+    <mesh ref={bubble} position={bubbleOrigin} geometry={sphereGeometry} material={bubbleMaterials[bubblesLoaded[0].color]} />
     <group name='arrow' ref={arrow} rotation={[0, 0, 0]} position={bubbleOrigin}>
       <Arrow position={[0, arrowLength / 2, 0]} />
     </group>

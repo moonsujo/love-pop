@@ -5,19 +5,28 @@
   // arrow should stay after shot.
   // bend the ball if it hits the left or the right wall.
   // reset when the ball hits the top wall.
-  reset when the ball hits another ball.
+  // reset when the ball hits another ball.
 // goal: optimize geometry
 goal: organize balls into a data structure
   add new row when ball enters a new one
   add balls into an array. it alternates even and odd.
 
-// goal: detect when ball hits another ball
-detect which side of the ball the ball hit
+// goal: detect when ball hits another ball // frame rate did not drop.
+detect which side of the ball the ball hit - divided by 6 sides
 add ball to the store
-detect balls that are connected
-detect balls that are connected and has the same color
+// detect balls that are connected
+// detect balls that are connected and has the same color
+// pop them
+drop the ones that are not connected anymore
+check win state
 
+goal: picking the next ball's color
+// initialize a ball with a color that exists in the level.
+the next one also needs to be one that's in the level.
 
-add ball to the store
-on add, check connected balls and pop
-on pop, check win state
+goal: add a 'shadow' row at the top
+ball should add to the row and stick like it's in a regular row
+
+goal: close the gap between the rows
+
+goal: smoothly move the ball upon stick

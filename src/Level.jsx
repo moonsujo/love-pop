@@ -1,6 +1,6 @@
 import { BOX_HEIGHT, BOX_WIDTH, BUBBLE_RADIUS } from "./constants"
 import { useSelector } from "react-redux"
-import { bubbleMaterial, sphereGeometry } from "./Optimizations"
+import { bubbleMaterials, sphereGeometry } from "./Optimizations"
 
 export default function Level({ scale=1 }) {
 
@@ -11,13 +11,16 @@ export default function Level({ scale=1 }) {
   return <group scale={scale}>
     { bubbles.map((bubbleRow, rowIndex) => (
       bubbleRow.map((bubble, index) => {
-        return <mesh 
-        geometry={sphereGeometry}
-        material={bubbleMaterial}
-        position-x={ bubble.position.x - (BOX_WIDTH / 2) + BUBBLE_RADIUS } 
-        position-y={ bubble.position.y + (BOX_HEIGHT / 2) - BUBBLE_RADIUS }
-        key={index}>
-      </mesh>
+        if (bubble) {
+          return <mesh 
+            geometry={sphereGeometry}
+            material={bubbleMaterials[bubble.color]}
+            position-x={ bubble.position.x - (BOX_WIDTH / 2) + BUBBLE_RADIUS } 
+            position-y={ bubble.position.y + (BOX_HEIGHT / 2) - BUBBLE_RADIUS }
+            key={index}>
+          </mesh>
+        }
+        
       })
     ))}
 
