@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { setBubbleShot, setArrowVector, setBubblesLoaded, popBubbles } from "./store/slices/bubbleSlice"
 import { BOX_WIDTH, BOX_HEIGHT, BUBBLE_RADIUS, NUM_BUBBLES_TO_REMOVE } from "./constants"
 import { bubbleMaterials, sphereGeometry } from "./Optimizations"
+import useSearchMatchingBubbles from "./useSearchMatchingBubbles"
 
 export default function Shooter(){
 
@@ -13,6 +14,7 @@ export default function Shooter(){
   const arrowVector = useSelector((state) => state.bubble.arrowVector)
   const bubbles = useSelector((state) => state.bubble.bubbles)
   const bubblesLoaded = useSelector((state) => state.bubble.bubblesLoaded)
+  const { searchMatchingBubblesHelper } = useSearchMatchingBubbles()
   const [ subscribeKeys, getKeys ] = useKeyboardControls()
   const bubble = useRef()
   const arrow = useRef()
@@ -35,55 +37,6 @@ export default function Shooter(){
       unsubscribeShoot()
     }
   }, [])
-
-  function searchMatchingBubblesHelper(row, col, color) {
-    return searchMatchingBubbles(row, col, new Set(), [], color)
-  }
-
-  // Set works with strings; array with elements of equal value are different objects
-  function searchMatchingBubbles(row, col, visited=new Set(), matchingBubbles=[], color) {
-    console.log("SEARCHING:", row, col)
-    // out of bounds
-    if (row < 0 || row >= bubbles.length) return matchingBubbles
-    if (col < 0 || col >= bubbles[row].length) return matchingBubbles
-    
-    const key = `${row},${col}`
-    if (visited.has(key)) return matchingBubbles
-    visited.add(key)
-
-    // DFS to find all connected bubbles of the same color
-    const targetColor = bubbles[row][col].color
-    console.log("TARGET COLOR:", targetColor, "SEARCH COLOR:", color)
-    if (targetColor !== color) return matchingBubbles
-    matchingBubbles.push([row, col])
-
-    const directionsEven = [
-      [-1, 1], [0, 1],
-      [-1, 0], [1, 0],
-      [-1, -1], [0, -1]
-    ]
-
-    const directionsOdd = [
-      [0, 1], [1, 1],
-      [-1, 0], [1, 0],
-      [0, -1], [1, -1]
-    ]
-    
-    if (row % 2 === 0) {
-      for (const [dr, dc] of directionsEven) {
-        const newRow = row + dr
-        const newCol = col + dc
-        searchMatchingBubbles(newRow, newCol, visited, matchingBubbles, color)
-      }
-    } else {
-      for (const [dr, dc] of directionsOdd) {
-        const newRow = row + dr
-        const newCol = col + dc
-        searchMatchingBubbles(newRow, newCol, visited, matchingBubbles, color)
-      }
-    }
-    return matchingBubbles
-  }
 
   const bubbleOrigin = [0, -(BOX_HEIGHT / 2) + 2, 0]
   useFrame(()=>{
@@ -111,6 +64,7 @@ export default function Shooter(){
           for (let j = 0; j < bubbles[i].length; j++) {
             // check collision with bubble at bubbles[i][j]
             const otherBubble = bubbles[i][j]
+            if (!otherBubble) continue
             const dx = bubble.current.position.x - otherBubble.position.x + (BOX_WIDTH / 2) - BUBBLE_RADIUS
             const dy = bubble.current.position.y - otherBubble.position.y - (BOX_HEIGHT / 2) + BUBBLE_RADIUS
             const distance = Math.sqrt(dx * dx + dy * dy)
@@ -135,6 +89,7 @@ export default function Shooter(){
               break
             }
           }
+          if (collision) { break }
         }
         if (collision) {
           dispatch(setBubbleShot(false))

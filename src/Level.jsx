@@ -20,13 +20,12 @@ export default function Level({ scale=1 }) {
             key={index}>
           </mesh>
         }
-        
       })
     ))}
 
     <mesh receiveShadow scale={ [BOX_WIDTH, BOX_HEIGHT, 1] }>
         <planeGeometry />
-        <meshStandardMaterial color="greenyellow" />
+        <meshStandardMaterial color="#F0B0FF" />
     </mesh>
   </group>
 }

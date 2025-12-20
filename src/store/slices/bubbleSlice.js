@@ -1,41 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { BUBBLE_RADIUS } from "../../constants";
+import { levelHeartBubbles } from "../../levels/heart";
+import { COLORS } from "../../constants";
 
-const level0Bubbles = [];
-const numRows = 3;
-const numBubblesInEvenRow = 8;
-const numBubblesInOddRow = numBubblesInEvenRow - 1;
-const colors = ['red', 'green', 'yellow', 'blue']
-for (let i = 0; i < numRows; i++) {
-  const row = [];
-  const y = i * 2 * BUBBLE_RADIUS;
-  const isEvenRow = i % 2 === 0;
-  const bubblesInRow = isEvenRow ? numBubblesInEvenRow : numBubblesInOddRow;
-  for (let j = 0; j < bubblesInRow; j++) {
-    row.push({ 
-      position: {
-        x: j * 2 * BUBBLE_RADIUS + (isEvenRow ? 0 : BUBBLE_RADIUS), 
-        y: -y 
-      },
-      color: colors[Math.floor(Math.random() * colors.length)]
-    });
-  }
-  level0Bubbles.push(row);
-}
 
-// convert everything to physics.
-// it takes longer to traverse
-// and takes more memory
-// collision detection is easier
 const bubbleSlice = createSlice({
   name: 'bubble',
   initialState: {
     shot: false,
     arrowVector: [0, 1, 0],
-    bubbles: level0Bubbles,
+    bubbles: levelHeartBubbles,
     bubblesLoaded: [
-      { color: colors[Math.floor(Math.random() * colors.length)]}, 
-      { color: colors[Math.floor(Math.random() * colors.length)]}
+      { color: COLORS[Math.floor(Math.random() * COLORS.length)]}, 
+      { color: COLORS[Math.floor(Math.random() * COLORS.length)]}
     ]
   },
   reducers: {
