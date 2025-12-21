@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { setBubbleShot, setArrowVector, setBubblesLoaded, popBubbles, loadNextBubble, attachBubble, addBubbleRow, dropBubbles } from "./store/slices/bubbleSlice"
 import { BOX_WIDTH, BOX_HEIGHT, BUBBLE_RADIUS, NUM_BUBBLES_TO_REMOVE } from "./constants"
 import { bubbleMaterials, sphereGeometry } from "./Optimizations"
-import useSearchMatchingBubbles from "./useSearchMatchingBubbles"
 import useAttachBubble from "./useAttachBubble"
 
 export default function Shooter(){
@@ -15,7 +14,6 @@ export default function Shooter(){
   const arrowVector = useSelector((state) => state.bubble.arrowVector)
   const bubbles = useSelector((state) => state.bubble.bubbles)
   const bubblesLoaded = useSelector((state) => state.bubble.bubblesLoaded)
-  const { searchMatchingBubblesHelper } = useSearchMatchingBubbles()
   const { attachBubbleLocation } = useAttachBubble()
   const [ subscribeKeys, getKeys ] = useKeyboardControls()
   const bubble = useRef()
@@ -52,14 +50,9 @@ export default function Shooter(){
       const rightBoundary = BOX_WIDTH / 2
       const leftBoundaryCollision = bubble.current.position.x - BUBBLE_RADIUS < leftBoundary
       const rightBoundaryCollision = bubble.current.position.x + BUBBLE_RADIUS > rightBoundary
-      const topBoundaryCollision = bubble.current.position.y + BUBBLE_RADIUS > BOX_HEIGHT / 2
       if (leftBoundaryCollision || rightBoundaryCollision) {
         // change direction
         dispatch(setArrowVector([arrowVector[0] * -1, arrowVector[1], 0]))
-      } else if (topBoundaryCollision) {
-        // add bubble to top row
-        // add a 'shadow' row at the top and check collision there
-        dispatch(setBubbleShot(false))
       } else {
         let collision = false // other bubble 
         for (let i = 0; i < bubbles.length; i++) {
@@ -69,6 +62,7 @@ export default function Shooter(){
             if (!otherBubble) continue
             const dx = bubble.current.position.x - otherBubble.position.x + (BOX_WIDTH / 2) - BUBBLE_RADIUS
             const dy = bubble.current.position.y - otherBubble.position.y - (BOX_HEIGHT / 2) + BUBBLE_RADIUS
+            
             const distance = Math.sqrt(dx * dx + dy * dy)
             if (distance < 2 * BUBBLE_RADIUS) {
               collision = true

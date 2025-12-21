@@ -1,6 +1,58 @@
-import { BUBBLE_RADIUS, Y_GAP, COLORS } from "../constants";
+import { BUBBLE_RADIUS, Y_GAP } from "../constants";
 
+// pinned to the left top corner of the box
 export const levelHeartBubbles = [
+  [ 
+    { 
+      position: { 
+        x: 0 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
+        y: 1 * Y_GAP
+      }, 
+      color: 'invisible' 
+    }, 
+    { 
+      position: { 
+        x: 1 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
+        y: 1 * Y_GAP
+      }, 
+      color: 'invisible'  
+    }, 
+    { 
+      position: { 
+        x: 2 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
+        y: 1 * Y_GAP
+      }, 
+      color: 'invisible' 
+    }, 
+    { 
+      position: { 
+        x: 3 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
+        y: 1 * Y_GAP
+      }, 
+      color: 'invisible' 
+    }, 
+    { 
+      position: { 
+        x: 4 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
+        y: 1 * Y_GAP
+      }, 
+      color: 'invisible' 
+    }, 
+    { 
+      position: { 
+        x: 5 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
+        y: 1 * Y_GAP
+      }, 
+      color: 'invisible' 
+    },
+    { 
+      position: { 
+        x: 6 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
+        y: 1 * Y_GAP
+      }, 
+      color: 'invisible' 
+    },
+  ],
   [ 
     null, 
     { 

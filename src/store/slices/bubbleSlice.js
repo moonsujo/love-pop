@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { levelHeartBubbles } from "../../levels/heart";
-import { BUBBLE_RADIUS, COLORS, DIRECTIONS_EVEN, DIRECTIONS_ODD, NUM_BUBBLES_EVEN, NUM_BUBBLES_ODD, NUM_BUBBLES_TO_REMOVE, Y_GAP } from "../../constants";
+import { DIRECTIONS_EVEN, DIRECTIONS_ODD, NUM_BUBBLES_EVEN, NUM_BUBBLES_ODD, NUM_BUBBLES_TO_REMOVE, Y_GAP } from "../../constants";
 
 const bubbleSlice = createSlice({
   name: 'bubble',
@@ -12,7 +12,7 @@ const bubbleSlice = createSlice({
       { color: 'red' }, 
       { color: 'pink' }
     ],
-    attachedBubble: { row: null, col: null, color: null }
+    attachedBubble: { row: null, col: null, color: null },
   },
   reducers: {
     setBubbleShot(state, action) {
@@ -27,7 +27,7 @@ const bubbleSlice = createSlice({
     loadNextBubble(state) {
       state.bubblesLoaded.shift();
       const remainingColors = new Set();
-      for (let i = 0; i < state.bubbles.length; i++) {
+      for (let i = 1; i < state.bubbles.length; i++) { // start from 1 to skip top row
         for (let j = 0; j < state.bubbles[i].length; j++) {
           const bubble = state.bubbles[i][j];
           if (bubble) {
@@ -40,19 +40,13 @@ const bubbleSlice = createSlice({
       });
     },
     addBubbleRow(state) {
-      const isEvenRow = state.bubbles.length % 2 === 0;
+      const isEvenRow = state.bubbles.length % 2 === 1;
       const newRow = new Array(isEvenRow ? NUM_BUBBLES_EVEN : NUM_BUBBLES_ODD).fill(null);
       state.bubbles.push(newRow);
     },
     attachBubble(state, action) {
       const { attachedRow, attachedCol, attachPosition, attachColor } = action.payload;
-      console.log('ATTACH BUBBLE IN SLICE at row', attachedRow, 'col', attachedCol);
-      if (attachedRow > state.bubbles.length) {
-        // add new row
-        const isEvenRow = attachedRow % 2 === 0;
-        const newRow = new Array(isEvenRow ? NUM_BUBBLES_EVEN : NUM_BUBBLES_ODD);
-        state.bubbles.push(newRow);
-      }
+      console.log('ATTACH BUBBLE IN SLICE at row', attachedRow, 'col', attachedCol, 'position', attachPosition, 'color', attachColor);
       state.bubbles[attachedRow][attachedCol] = {
         position: { ...attachPosition },
         color: attachColor
@@ -66,7 +60,7 @@ const bubbleSlice = createSlice({
       function searchMatchingBubbles(row, col, visited=new Set(), matchingBubbles=[], color) {
         console.log("SEARCHING BUBBLES AT ROW", row, "COL", col)
         // out of bounds
-        if (row < 0 || row >= state.bubbles.length || !state.bubbles[row]) return matchingBubbles
+        if (row < 1 || row >= state.bubbles.length || !state.bubbles[row]) return matchingBubbles
         if (col < 0 || col >= state.bubbles[row].length || !state.bubbles[row][col]) return matchingBubbles
         
         const key = `${row},${col}`
@@ -91,7 +85,7 @@ const bubbleSlice = createSlice({
           [0, -1], [1, -1]
         ]
         
-        if (row % 2 === 0) {
+        if (row % 2 === 1) {
           for (const [dc, dr] of directionsEven) {
             const newCol = col + dc
             const newRow = row + dr
@@ -109,7 +103,9 @@ const bubbleSlice = createSlice({
 
       const { row, col, color } = action.payload;
       const matchingBubbles = searchMatchingBubblesHelper(row, col, color);
+      console.log('MATCHING BUBBLES TO POP:', matchingBubbles);
       if (matchingBubbles.length < NUM_BUBBLES_TO_REMOVE) return; // need at least 3 to pop
+      console.log('popping', matchingBubbles);
       for (const [row, col] of matchingBubbles) {
         state.bubbles[row][col] = null; // remove bubble
       }
@@ -132,11 +128,11 @@ const bubbleSlice = createSlice({
           const key = `${r}, ${c}`;
           if (visited.has(key)) continue;
           visited.add(key);
-          const directions = r % 2 === 0 ? DIRECTIONS_EVEN : DIRECTIONS_ODD;
+          const directions = r % 2 === 1 ? DIRECTIONS_EVEN : DIRECTIONS_ODD;
           for (const [dc, dr] of directions) {
             const newRow = r + dr;
             const newCol = c + dc;
-            if (newRow >= 0 && newRow < state.bubbles.length &&
+            if (newRow >= 1 && newRow < state.bubbles.length &&
                 newCol >= 0 && newCol < state.bubbles[newRow].length &&
                 state.bubbles[newRow][newCol]) {
               queue.push([newRow, newCol]);

@@ -23,13 +23,27 @@
 // add ball to the store
 // drop the ones that are not connected anymore
 
-goal: add a 'shadow' row at the top
-ball should add to the row and stick like it's in a regular row
+// goal: add a 'shadow' row at the top
+// ball should add to the row and stick like it's in a regular row
+// set all balls within box. 
 
 goal: check win state
 if all balls cleared, win
 if ball below threshold, lose
 else, lower stage after x turns
+(slide embarrassing photo from the top)
+
+goal: add more photos
+new balls should not have hearts
+
+goal: show photo on popping the original bubbles
+31 - 8 x 4.
+
+goal: write a letter
+
+goal: pick the balls based on colors remaining
+if there's two of the same color remaining, and the next two are the same color,
+and you pop them, you'll have to make another group.
 
 // goal: design the first level to ensure you can pop the first two.
 // heart shape
@@ -45,7 +59,5 @@ else, lower stage after x turns
 
 goal: request materials
 
-goal: add more photos
-new balls should not have hearts
 
-optimize: smoothly move the ball upon stick
+option: smoothly move the ball upon stick

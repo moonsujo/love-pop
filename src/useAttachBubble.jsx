@@ -8,7 +8,8 @@ export default function useAttachBubble() {
     // assign bubble to index in array based on dx dy
     let attachedRow, attachedCol, attachPosition;
     const attachColor = color;
-    console.log('bubbles before attaching', bubbles);
+    const inivisibleRowShift = 1;
+
 
     function attachRight() {
       attachedRow = row;
@@ -21,11 +22,11 @@ export default function useAttachBubble() {
     }
     function attachRightTop() {
       attachedRow = row-1;
-      attachedCol = row % 2 === 0 ? col : col + 1;
+      attachedCol = row % 2 === 1 ? col : col + 1;
       console.log('ATTACH RIGHT TOP, row', row, 'col', col);
       attachPosition = {
         x: bubbles[row][col].position.x + BUBBLE_RADIUS,
-        y: -(row-1) * Y_GAP
+        y: -(row-1 - inivisibleRowShift) * Y_GAP
       }
     }
     function attachLeft() {
@@ -39,29 +40,29 @@ export default function useAttachBubble() {
     }
     function attachLeftTop() {
       attachedRow = row-1;
-      attachedCol = row % 2 === 0 ? col - 1 : col;
+      attachedCol = row % 2 === 1 ? col - 1 : col;
       console.log('ATTACH LEFT TOP, row', row, 'col', col);
       attachPosition = {
         x: bubbles[row][col].position.x - BUBBLE_RADIUS,
-        y: -(row-1) * Y_GAP
+        y: -(row-1 - inivisibleRowShift) * Y_GAP
       }
     }
     function attachLeftBottom() {
       attachedRow = row+1;
-      attachedCol = row % 2 === 0 ? col - 1 : col;
+      attachedCol = row % 2 === 1 ? col - 1 : col;
       console.log('ATTACH LEFT BOTTOM, row', row, 'col', col);
       attachPosition = {
         x: bubbles[row][col].position.x - BUBBLE_RADIUS,
-        y: -(row+1) * Y_GAP
+        y: -(row+1 - inivisibleRowShift) * Y_GAP
       }
     }
     function attachRightBottom() {
       attachedRow = row+1;
-      attachedCol = row % 2 === 0 ? col : col + 1;
+      attachedCol = row % 2 === 1 ? col : col + 1;
       console.log('ATTACH RIGHT BOTTOM, row', row, 'col', col);
       attachPosition = {
         x: bubbles[row][col].position.x + BUBBLE_RADIUS,
-        y: -(row+1) * Y_GAP
+        y: -(row+1 - inivisibleRowShift) * Y_GAP
       }
     }
 
