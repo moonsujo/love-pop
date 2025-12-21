@@ -15,23 +15,33 @@
 // pop them
 // unconnected ball with the same color popped
 // can't shoot after popping one
-attach first, then detect matching bubbles. it may collide with another bubble, and attach to a bubble with a matching color.
-smoothly move the ball upon stick
-detect which side of the ball it hit - divided by 6 sides
-add ball to the store
+// attach first, then detect matching bubbles. it may collide with another bubble, and attach to a bubble with a matching color.
+// group pops with 2 of the same
+ball doesn't stick to the left - on row 4, index 1
+ball doesn't pop even when group is the same sometimes
+// detect which side of the ball it hit - divided by 6 sides
+// add ball to the store
 drop the ones that are not connected anymore
 check win state
 
 // goal: design the first level to ensure you can pop the first two.
 // heart shape
 // assign colors (figma)
-first bubble must have a color that can be popped in the last row.
+// first bubble must have a color that can be popped in the last row.
+// cleared stage!
 
-goal: picking the next ball's color
+// goal: picking the next ball's color
 // initialize a ball with a color that exists in the level.
-the next one also needs to be one that's in the level.
+// the next one also needs to be one that's in the level.
 
 goal: add a 'shadow' row at the top
 ball should add to the row and stick like it's in a regular row
 
 goal: close the gap between the rows
+
+goal: request materials
+
+goal: add more photos
+
+optimize: smoothly move the ball upon stick
+

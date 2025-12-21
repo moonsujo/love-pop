@@ -1,0 +1,3 @@
+Redux: calculate state with hook. set state with reducer.
+example: attachBubbleLocation, attachBubble.
+you can have a reducer that doesn't take in any payload.

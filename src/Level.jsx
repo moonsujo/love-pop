@@ -17,15 +17,15 @@ export default function Level({ scale=1 }) {
             material={bubbleMaterials[bubble.color]}
             position-x={ bubble.position.x - (BOX_WIDTH / 2) + BUBBLE_RADIUS } 
             position-y={ bubble.position.y + (BOX_HEIGHT / 2) - BUBBLE_RADIUS }
-            key={index}>
+            key={`${rowIndex}-${index}`}>
           </mesh>
         }
       })
     ))}
 
     <mesh receiveShadow scale={ [BOX_WIDTH, BOX_HEIGHT, 1] }>
-        <planeGeometry />
-        <meshStandardMaterial color="#F0B0FF" />
+      <planeGeometry />
+      <meshStandardMaterial color="#F0B0FF" />
     </mesh>
   </group>
 }

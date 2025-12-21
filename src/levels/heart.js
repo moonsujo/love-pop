@@ -24,14 +24,14 @@ export const levelHeartBubbles = [
         x: 5 * 2 * BUBBLE_RADIUS, 
         y: 0 * 2 * BUBBLE_RADIUS
       }, 
-      color: 'red' 
+      color: 'pink'
     }, 
     { 
       position: { 
         x: 6 * 2 * BUBBLE_RADIUS, 
         y: 0 * 2 * BUBBLE_RADIUS
       }, 
-      color: 'red' 
+      color: 'pink' 
     },
     null 
   ],
@@ -63,21 +63,21 @@ export const levelHeartBubbles = [
         x: 4 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
         y: -1 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'pink'
     }, 
     { 
       position: { 
         x: 5 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
         y: -1 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'pink'
     },
     { 
       position: { 
         x: 6 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
         y: -1 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'pink'
     },
   ],
   [ 
@@ -86,42 +86,42 @@ export const levelHeartBubbles = [
         x: 0 * 2 * BUBBLE_RADIUS, 
         y: -2 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'purple' 
     }, 
     { 
       position: { 
         x: 1 * 2 * BUBBLE_RADIUS, 
         y: -2 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'purple' 
     }, 
     { 
       position: { 
         x: 2 * 2 * BUBBLE_RADIUS, 
         y: -2 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'orange' 
     }, 
     { 
       position: { 
         x: 3 * 2 * BUBBLE_RADIUS, 
         y: -2 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'orange' 
     }, 
     { 
       position: { 
         x: 4 * 2 * BUBBLE_RADIUS, 
         y: -2 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'purple' 
     }, 
     { 
       position: { 
         x: 5 * 2 * BUBBLE_RADIUS, 
         y: -2 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'purple' 
     }, 
     { 
       position: { 
@@ -144,35 +144,35 @@ export const levelHeartBubbles = [
         x: 0 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
         y: -3 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'purple' 
     }, 
     { 
       position: { 
         x: 1 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
         y: -3 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'orange' 
     }, 
     { 
       position: { 
         x: 2 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
         y: -3 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'orange' 
     }, 
     { 
       position: { 
         x: 3 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
         y: -3 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'purple' 
     }, 
     { 
       position: { 
         x: 4 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
         y: -3 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'purple' 
     }, 
     { 
       position: { 
@@ -196,14 +196,14 @@ export const levelHeartBubbles = [
         x: 1 * 2 * BUBBLE_RADIUS, 
         y: -4 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'pink' 
     }, 
     { 
       position: { 
         x: 2 * 2 * BUBBLE_RADIUS, 
         y: -4 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'pink' 
     }, 
     { 
       position: { 
@@ -224,14 +224,14 @@ export const levelHeartBubbles = [
         x: 5 * 2 * BUBBLE_RADIUS, 
         y: -4 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'orange' 
     }, 
     { 
       position: { 
         x: 6 * 2 * BUBBLE_RADIUS, 
         y: -4 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'orange' 
     }, 
     null 
   ],
@@ -242,14 +242,14 @@ export const levelHeartBubbles = [
         x: 2 * 2 * BUBBLE_RADIUS - BUBBLE_RADIUS, 
         y: -5 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'pink' 
     }, 
     { 
       position: { 
         x: 3 * 2 * BUBBLE_RADIUS - BUBBLE_RADIUS, 
         y: -5 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'pink' 
     }, 
     { 
       position: { 
@@ -263,14 +263,14 @@ export const levelHeartBubbles = [
         x: 5 * 2 * BUBBLE_RADIUS - BUBBLE_RADIUS, 
         y: -5 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'orange' 
     }, 
     { 
       position: { 
         x: 6 * 2 * BUBBLE_RADIUS - BUBBLE_RADIUS, 
         y: -5 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'orange' 
     }, 
     null,
   ],
@@ -282,28 +282,28 @@ export const levelHeartBubbles = [
         x: 2 * 2 * BUBBLE_RADIUS, 
         y: -6 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'purple' 
     }, 
     { 
       position: { 
         x: 3 * 2 * BUBBLE_RADIUS, 
         y: -6 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'purple' 
     }, 
     { 
       position: { 
         x: 4 * 2 * BUBBLE_RADIUS, 
         y: -6 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'pink' 
     }, 
     { 
       position: { 
         x: 5 * 2 * BUBBLE_RADIUS, 
         y: -6 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'pink' 
     }, 
     null,
     null 
@@ -316,21 +316,21 @@ export const levelHeartBubbles = [
         x: 3 * 2 * BUBBLE_RADIUS - BUBBLE_RADIUS, 
         y: -7 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'purple' 
     }, 
     { 
       position: { 
         x: 4 * 2 * BUBBLE_RADIUS - BUBBLE_RADIUS, 
         y: -7 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'pink' 
     }, 
     { 
       position: { 
         x: 5 * 2 * BUBBLE_RADIUS - BUBBLE_RADIUS, 
         y: -7 * Y_GAP
       }, 
-      color: 'red' 
+      color: 'pink' 
     }, 
     null,
     null,

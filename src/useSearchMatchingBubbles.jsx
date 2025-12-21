@@ -9,10 +9,9 @@ export default function useSearchMatchingBubbles() {
 
   // Set works with strings; array with elements of equal value are different objects
   function searchMatchingBubbles(row, col, visited=new Set(), matchingBubbles=[], color) {
-    console.log("SEARCHING:", row, col)
     // out of bounds
-    if (row < 0 || row >= bubbles.length) return matchingBubbles
-    if (col < 0 || col >= bubbles[row].length) return matchingBubbles
+    if (row < 0 || row >= bubbles.length || !bubbles[row]) return matchingBubbles
+    if (col < 0 || col >= bubbles[row].length || !bubbles[row][col]) return matchingBubbles
     
     const key = `${row},${col}`
     if (visited.has(key)) return matchingBubbles
