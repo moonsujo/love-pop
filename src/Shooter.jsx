@@ -2,7 +2,7 @@ import { useKeyboardControls } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { setBubbleShot, setArrowVector, setBubblesLoaded, popBubbles, loadNextBubble, attachBubble, addBubbleRow } from "./store/slices/bubbleSlice"
+import { setBubbleShot, setArrowVector, setBubblesLoaded, popBubbles, loadNextBubble, attachBubble, addBubbleRow, dropBubbles } from "./store/slices/bubbleSlice"
 import { BOX_WIDTH, BOX_HEIGHT, BUBBLE_RADIUS, NUM_BUBBLES_TO_REMOVE } from "./constants"
 import { bubbleMaterials, sphereGeometry } from "./Optimizations"
 import useSearchMatchingBubbles from "./useSearchMatchingBubbles"
@@ -79,23 +79,21 @@ export default function Shooter(){
                 attachPosition, 
                 attachColor 
               } = attachBubbleLocation(dx, dy, i, j, bubblesLoaded[0].color)
+
               if (attachedRow >= bubbles.length) {
                 // add new row
                 dispatch(addBubbleRow())
               }
+
               dispatch(attachBubble({
                 attachedRow, 
                 attachedCol, 
                 attachPosition, 
                 attachColor
               }))
-              // check for matches from attached bubble
-              if (otherBubble.color === bubblesLoaded[0].color) {
-                // check if it's connected to 3 or more bubbles of the same color
-                // remove those bubbles
-                console.log("DISPATCH POP BUBBLES at row", attachedRow, "col", attachedCol, "color", bubblesLoaded[0].color);
-                dispatch(popBubbles({ row: attachedRow, col: attachedCol, color: bubblesLoaded[0].color }))
-              }
+
+              dispatch(popBubbles({ row: attachedRow, col: attachedCol, color: bubblesLoaded[0].color }))
+              dispatch(dropBubbles())
               break
             }
           }

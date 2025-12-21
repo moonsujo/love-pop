@@ -8,6 +8,7 @@ export default function useAttachBubble() {
     // assign bubble to index in array based on dx dy
     let attachedRow, attachedCol, attachPosition;
     const attachColor = color;
+    console.log('bubbles before attaching', bubbles);
 
     function attachRight() {
       attachedRow = row;
@@ -31,24 +32,18 @@ export default function useAttachBubble() {
       attachedRow = row;
       attachedCol = col - 1;
       console.log('ATTACH LEFT, row', row, 'col', col);
-      bubbles[attachedRow][attachedCol] = {
-        position: {
-          x: bubbles[row][col].position.x - 2 * BUBBLE_RADIUS,
-          y: bubbles[row][col].position.y
-        },
-        color
+      attachPosition = {
+        x: bubbles[row][col].position.x - 2 * BUBBLE_RADIUS,
+        y: bubbles[row][col].position.y
       }
     }
     function attachLeftTop() {
       attachedRow = row-1;
       attachedCol = row % 2 === 0 ? col - 1 : col;
       console.log('ATTACH LEFT TOP, row', row, 'col', col);
-      bubbles[attachedRow][attachedCol] = {
-        position: {
-          x: bubbles[row][col].position.x - BUBBLE_RADIUS,
-          y: -(row-1) * Y_GAP
-        },
-        color
+      attachPosition = {
+        x: bubbles[row][col].position.x - BUBBLE_RADIUS,
+        y: -(row-1) * Y_GAP
       }
     }
     function attachLeftBottom() {

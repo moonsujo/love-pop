@@ -17,12 +17,19 @@
 // can't shoot after popping one
 // attach first, then detect matching bubbles. it may collide with another bubble, and attach to a bubble with a matching color.
 // group pops with 2 of the same
-ball doesn't stick to the left - on row 4, index 1
-ball doesn't pop even when group is the same sometimes
+// ball doesn't stick to the left - on row 4, index 1
+// ball doesn't pop even when group is the same sometimes
 // detect which side of the ball it hit - divided by 6 sides
 // add ball to the store
-drop the ones that are not connected anymore
-check win state
+// drop the ones that are not connected anymore
+
+goal: add a 'shadow' row at the top
+ball should add to the row and stick like it's in a regular row
+
+goal: check win state
+if all balls cleared, win
+if ball below threshold, lose
+else, lower stage after x turns
 
 // goal: design the first level to ensure you can pop the first two.
 // heart shape
@@ -34,14 +41,11 @@ check win state
 // initialize a ball with a color that exists in the level.
 // the next one also needs to be one that's in the level.
 
-goal: add a 'shadow' row at the top
-ball should add to the row and stick like it's in a regular row
-
-goal: close the gap between the rows
+// goal: close the gap between the rows
 
 goal: request materials
 
 goal: add more photos
+new balls should not have hearts
 
 optimize: smoothly move the ball upon stick
-

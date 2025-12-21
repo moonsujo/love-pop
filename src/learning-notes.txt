@@ -1,3 +1,17 @@
-Redux: calculate state with hook. set state with reducer.
+Redux: 
+calculate state with hook. set state with reducer.
 example: attachBubbleLocation, attachBubble.
 you can have a reducer that doesn't take in any payload.
+
+react:
+new Array(num_length).fill(null)
+without .fill, it will have 'empty' which is inaccessible.
+example: adding a new row of bubbles
+
+BFS:
+can be written with a queue and a while loop
+initialize queue with a ball.
+add adjacent balls to the queue.
+shift from the front. the order becomes: 1 - all balls around it - all balls around the second one
+track the visited ones. data structure: set, elements: string of "row-column"
+you can use this to revisit the bubbles and remove ones that aren't visited from the [row][column]

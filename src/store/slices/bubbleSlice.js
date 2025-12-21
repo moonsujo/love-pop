@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { levelHeartBubbles } from "../../levels/heart";
-import { BUBBLE_RADIUS, COLORS, NUM_BUBBLES_EVEN, Y_GAP } from "../../constants";
+import { BUBBLE_RADIUS, COLORS, DIRECTIONS_EVEN, DIRECTIONS_ODD, NUM_BUBBLES_EVEN, NUM_BUBBLES_ODD, NUM_BUBBLES_TO_REMOVE, Y_GAP } from "../../constants";
 
 const bubbleSlice = createSlice({
   name: 'bubble',
@@ -41,7 +41,7 @@ const bubbleSlice = createSlice({
     },
     addBubbleRow(state) {
       const isEvenRow = state.bubbles.length % 2 === 0;
-      const newRow = new Array(isEvenRow ? NUM_BUBBLES_EVEN : NUM_BUBBLES_ODD)
+      const newRow = new Array(isEvenRow ? NUM_BUBBLES_EVEN : NUM_BUBBLES_ODD).fill(null);
       state.bubbles.push(newRow);
     },
     attachBubble(state, action) {
@@ -109,15 +109,61 @@ const bubbleSlice = createSlice({
 
       const { row, col, color } = action.payload;
       const matchingBubbles = searchMatchingBubblesHelper(row, col, color);
-      console.log("POPPING BUBBLES:", matchingBubbles);
+      if (matchingBubbles.length < NUM_BUBBLES_TO_REMOVE) return; // need at least 3 to pop
       for (const [row, col] of matchingBubbles) {
         state.bubbles[row][col] = null; // remove bubble
+      }
+    },
+    dropBubbles(state) {
+      // BFS from top to find connected bubbles
+      // passthrough 1: find all bubbles connected to the top
+        // keep track of visited bubbles
+      // passthrough 2: remove all bubbles that are not connected to the top
+        // remove unvisited bubbles
+      const visited = new Set();
+      function bfs(row, col) {
+        // initialize queue
+        // push to the end
+        // pop from the front
+        // order visits the bubbles that are next to the first
+        const queue = [[row, col]];
+        while (queue.length > 0) {
+          const [r, c] = queue.shift();
+          const key = `${r}, ${c}`;
+          if (visited.has(key)) continue;
+          visited.add(key);
+          const directions = r % 2 === 0 ? DIRECTIONS_EVEN : DIRECTIONS_ODD;
+          for (const [dc, dr] of directions) {
+            const newRow = r + dr;
+            const newCol = c + dc;
+            if (newRow >= 0 && newRow < state.bubbles.length &&
+                newCol >= 0 && newCol < state.bubbles[newRow].length &&
+                state.bubbles[newRow][newCol]) {
+              queue.push([newRow, newCol]);
+            }
+          }
+        }
+      }
+      // start BFS from all bubbles in the top row
+      for (let col = 0; col < state.bubbles[0].length; col++) {
+        if (state.bubbles[0][col]) {
+          bfs(0, col);
+        }
+      }
+      // remove unvisited bubbles
+      for (let i = 0; i < state.bubbles.length; i++) {
+        for (let j = 0; j < state.bubbles[i].length; j++) {
+          const key = `${i}, ${j}`;
+          if (state.bubbles[i][j] && !visited.has(key)) {
+            state.bubbles[i][j] = null;
+          }
+        }
       }
     }
   }
 })
 
-export const { setBubbleShot, setArrowVector, setBubblesLoaded, popBubbles, loadNextBubble, attachBubble, addBubbleRow,  } = bubbleSlice.actions;
+export const { setBubbleShot, dropBubbles, setArrowVector, setBubblesLoaded, popBubbles, loadNextBubble, attachBubble, addBubbleRow,  } = bubbleSlice.actions;
 
 export const selectBubbleShot = (state) => state.bubble.shot;
 

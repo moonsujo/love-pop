@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux"
+import { DIRECTIONS_EVEN, DIRECTIONS_ODD } from "./constants"
 
 export default function useSearchMatchingBubbles() {
   const bubbles = useSelector((state) => state.bubble.bubbles)
@@ -22,27 +23,15 @@ export default function useSearchMatchingBubbles() {
     console.log("TARGET COLOR:", targetColor, "SEARCH COLOR:", color)
     if (targetColor !== color) return matchingBubbles
     matchingBubbles.push([row, col])
-
-    const directionsEven = [
-      [-1, 1], [0, 1],
-      [-1, 0], [1, 0],
-      [-1, -1], [0, -1]
-    ]
-
-    const directionsOdd = [
-      [0, 1], [1, 1],
-      [-1, 0], [1, 0],
-      [0, -1], [1, -1]
-    ]
     
     if (row % 2 === 0) {
-      for (const [dc, dr] of directionsEven) {
+      for (const [dc, dr] of DIRECTIONS_EVEN) {
         const newCol = col + dc
         const newRow = row + dr
         searchMatchingBubbles(newRow, newCol, visited, matchingBubbles, color)
       }
     } else {
-      for (const [dc, dr] of directionsOdd) {
+      for (const [dc, dr] of DIRECTIONS_ODD) {
         const newCol = col + dc
         const newRow = row + dr
         searchMatchingBubbles(newRow, newCol, visited, matchingBubbles, color)
