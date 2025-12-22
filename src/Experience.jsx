@@ -18,11 +18,11 @@ export default function Experience() {
         zoom={10}
         position={[0, 0, 5]}
       />
-      {/* <OrbitControls/> */}
+      <OrbitControls/>
       {/* <Perf/>  */}
       <Lights/>
     </group>
-    <group name='scene' scale={1.5}>
+    <group name='scene' scale={1.3} position={[38, 0, 0]}>
       <Level/>
       <Shooter/>
     </group>

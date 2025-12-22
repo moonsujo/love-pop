@@ -32,6 +32,8 @@ if all balls cleared, win
 if ball below threshold, lose
 else, lower stage after x turns
 (slide embarrassing photo from the top)
+save the letter until all bubbles are popped
+when all main bubbles are popped, display 'pop them all for a surprise...'
 
 goal: add more photos
 new balls should not have hearts
@@ -40,6 +42,7 @@ goal: show photo on popping the original bubbles
 31 - 8 x 4.
 
 goal: write a letter
+unfold in the box
 
 goal: pick the balls based on colors remaining
 if there's two of the same color remaining, and the next two are the same color,
@@ -58,6 +61,7 @@ and you pop them, you'll have to make another group.
 // goal: close the gap between the rows
 
 goal: request materials
+bow tie on the top
 
 
 option: smoothly move the ball upon stick

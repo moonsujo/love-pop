@@ -10,7 +10,6 @@ export default function useAttachBubble() {
     const attachColor = color;
     const inivisibleRowShift = 1;
 
-
     function attachRight() {
       attachedRow = row;
       attachedCol = col + 1;

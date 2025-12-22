@@ -1,6 +1,7 @@
 import { BOX_HEIGHT, BOX_WIDTH, BUBBLE_RADIUS } from "./constants"
 import { useSelector } from "react-redux"
 import { bubbleMaterials, sphereGeometry } from "./Optimizations"
+import { ChristmasGift } from "./meshes/ChristmasGift"
 
 export default function Level({ scale=1 }) {
 
@@ -8,6 +9,7 @@ export default function Level({ scale=1 }) {
   // 8, 7, 8
   const bubbles = useSelector((state) => state.bubble.bubbles)
 
+  const frameWidth = 1
   return <group scale={scale}>
     { bubbles.map((bubbleRow, rowIndex) => (
       bubbleRow.map((bubble, index) => {
@@ -17,15 +19,35 @@ export default function Level({ scale=1 }) {
             material={bubbleMaterials[bubble.color]}
             position-x={ bubble.position.x - (BOX_WIDTH / 2) + BUBBLE_RADIUS } 
             position-y={ bubble.position.y + (BOX_HEIGHT / 2) - BUBBLE_RADIUS }
+            position-z={ rowIndex === 0 ? -5 : 0}
             key={`${rowIndex}-${index}`}>
           </mesh>
         }
       })
     ))}
 
-    <mesh receiveShadow scale={ [BOX_WIDTH, BOX_HEIGHT, 1] }>
-      <planeGeometry />
-      <meshStandardMaterial color="#F0B0FF" />
-    </mesh>
+    <group name='background'>
+      <mesh receiveShadow scale={ [BOX_WIDTH, BOX_HEIGHT, 1] }>
+        <planeGeometry />
+        <meshStandardMaterial color="#F0B0FF" transparent opacity={0.5}/>
+      </mesh>
+      <mesh name='box-frame-left' position={[-8 - frameWidth/2, 0, 0]}>
+        <boxGeometry args={ [frameWidth, BOX_HEIGHT, 1] } />
+        <meshStandardMaterial color="brown" />
+      </mesh>
+      <mesh name='box-frame-right' position={[8 + frameWidth/2, 0, 0]}>
+        <boxGeometry args={ [frameWidth, BOX_HEIGHT, 1] } />
+        <meshStandardMaterial color="brown" />
+      </mesh>
+      <mesh name='box-frame-top' position={[0, (BOX_HEIGHT / 2) + frameWidth/2, 0]}>
+        <boxGeometry args={ [BOX_WIDTH + 2 * frameWidth, frameWidth, 1] } />
+        <meshStandardMaterial color="brown" />
+      </mesh>
+      <mesh name='box-frame-bottom' position={[0, -(BOX_HEIGHT / 2) - frameWidth/2, 0]}>
+        <boxGeometry args={ [BOX_WIDTH + 2 * frameWidth, frameWidth, 1] } />
+        <meshStandardMaterial color="brown" />
+      </mesh>
+      <ChristmasGift position={[0, BOX_HEIGHT / 2 - 12.7, 0]} scale={[0.015, 0.04, 0.02]} rotation={[-Math.PI/64, Math.PI/6, 0]}/>
+    </group>
   </group>
 }
