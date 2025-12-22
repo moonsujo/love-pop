@@ -1,7 +1,7 @@
 import { BOX_HEIGHT, BOX_WIDTH, BUBBLE_RADIUS } from "./constants"
 import { useSelector } from "react-redux"
 import { bubbleMaterials, sphereGeometry } from "./Optimizations"
-import { ChristmasGift } from "./meshes/ChristmasGift"
+import { GiftBowtie } from "./meshes/GiftBowtie"
 
 export default function Level({ scale=1 }) {
 
@@ -47,7 +47,7 @@ export default function Level({ scale=1 }) {
         <boxGeometry args={ [BOX_WIDTH + 2 * frameWidth, frameWidth, 1] } />
         <meshStandardMaterial color="brown" />
       </mesh>
-      <ChristmasGift position={[0, BOX_HEIGHT / 2 - 12.7, 0]} scale={[0.015, 0.04, 0.02]} rotation={[-Math.PI/64, Math.PI/6, 0]}/>
+      <GiftBowtie position={[0, BOX_HEIGHT / 2 - 12.7, 0]} scale={[0.015, 0.04, 0.02]} rotation={[-Math.PI/64, Math.PI/6, 0]}/>
     </group>
   </group>
 }

@@ -4,6 +4,7 @@ import Lights from "./Lights";
 import { Perf } from "r3f-perf";
 import Shooter from "./Shooter";
 import Photos from "./Photos";
+import Background from "./Background";
 
 export default function Experience() {
 
@@ -26,6 +27,7 @@ export default function Experience() {
       <Level/>
       <Shooter/>
     </group>
+    <Background/>
     {/* <Photos/> */}
   </>
 }
