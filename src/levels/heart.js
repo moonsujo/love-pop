@@ -84,7 +84,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'red',
       hasPhoto: true,
-      photoIndex: 12
+      photoIndex: 19
     }, 
     { 
       position: { 
@@ -93,7 +93,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'red',
       hasPhoto: true,
-      photoIndex: 28
+      photoIndex: 7
     }, 
     null, 
     null, 
@@ -123,7 +123,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'red',
       hasPhoto: true,
-      photoIndex: 5
+      photoIndex: 11
     }, 
     { 
       position: { 
@@ -132,7 +132,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'red',
       hasPhoto: true,
-      photoIndex: 19
+      photoIndex: 9
     }, 
     { 
       position: { 
@@ -141,7 +141,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'red',
       hasPhoto: true,
-      photoIndex: 7
+      photoIndex: 23
     }, 
     null, 
     { 
@@ -151,7 +151,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'pink',
       hasPhoto: true,
-      photoIndex: 22
+      photoIndex: 0
     }, 
     { 
       position: { 
@@ -160,7 +160,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'pink',
       hasPhoto: true,
-      photoIndex: 14
+      photoIndex: 3
     },
     { 
       position: { 
@@ -168,8 +168,7 @@ export const levelHeartBubbles = [
         y: calculatePositionY(2)
       }, 
       color: 'pink',
-      hasPhoto: true,
-      photoIndex: 30
+      hasPhoto: false,
     },
   ],
   [ 
@@ -196,7 +195,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'orange',
       hasPhoto: true,
-      photoIndex: 3
+      photoIndex: 14
     }, 
     { 
       position: { 
@@ -221,7 +220,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'purple',
       hasPhoto: true,
-      photoIndex: 17
+      photoIndex: 24
     }, 
     { 
       position: { 
@@ -230,7 +229,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'red',
       hasPhoto: true,
-      photoIndex: 11
+      photoIndex: 20
     },
     { 
       position: { 
@@ -249,7 +248,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'purple',
       hasPhoto: true,
-      photoIndex: 25
+      photoIndex: 16
     }, 
     { 
       position: { 
@@ -266,7 +265,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'orange',
       hasPhoto: true,
-      photoIndex: 9
+      photoIndex: 15
     }, 
     { 
       position: { 
@@ -275,7 +274,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'purple',
       hasPhoto: true,
-      photoIndex: 20
+      photoIndex: 12
     }, 
     { 
       position: { 
@@ -284,7 +283,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'purple',
       hasPhoto: true,
-      photoIndex: 30
+      photoIndex: 5
     }, 
     { 
       position: { 
@@ -301,7 +300,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'red',
       hasPhoto: true,
-      photoIndex: 23
+      photoIndex: 28
     },
   ],
   [ 
@@ -313,7 +312,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'pink',
       hasPhoto: true,
-      photoIndex: 8
+      photoIndex: 17
     }, 
     { 
       position: { 
@@ -322,7 +321,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'pink',
       hasPhoto: true,
-      photoIndex: 24
+      photoIndex: 25
     }, 
     { 
       position: { 
@@ -339,7 +338,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'red',
       hasPhoto: true,
-      photoIndex: 16
+      photoIndex: 4
     }, 
     { 
       position: { 
@@ -369,7 +368,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'pink',
       hasPhoto: true,
-      photoIndex: 27
+      photoIndex: 30
     }, 
     { 
       position: { 
@@ -378,7 +377,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'pink',
       hasPhoto: true,
-      photoIndex: 13
+      photoIndex: 22
     }, 
     { 
       position: { 
@@ -387,7 +386,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'red',
       hasPhoto: true,
-      photoIndex: 21
+      photoIndex: 27
     }, 
     { 
       position: { 
@@ -404,7 +403,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'orange',
       hasPhoto: true,
-      photoIndex: 4
+      photoIndex: 8
     }, 
     null,
   ],
@@ -418,7 +417,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'purple',
       hasPhoto: true,
-      photoIndex: 10
+      photoIndex: 13
     }, 
     { 
       position: { 
@@ -436,7 +435,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'pink',
       hasPhoto: true,
-      photoIndex: 26
+      photoIndex: 21
     }, 
     { 
       position: { 
@@ -445,7 +444,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'pink',
       hasPhoto: true,
-      photoIndex: 15
+      photoIndex: 29
     }, 
     null,
     null 
@@ -460,7 +459,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'purple',
       hasPhoto: true,
-      photoIndex: 29
+      photoIndex: 10
     }, 
     { 
       position: { 
@@ -478,7 +477,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'pink',
       hasPhoto: true,
-      photoIndex: 1
+      photoIndex: 26
     }, 
     null,
     null,
@@ -494,7 +493,7 @@ export const levelHeartBubbles = [
       }, 
       color: 'red',
       hasPhoto: true,
-      photoIndex: 0
+      photoIndex: 1
     }, 
     { 
       position: { 

@@ -27,25 +27,25 @@
 // ball should add to the row and stick like it's in a regular row
 // set all balls within box. 
 
+not all photos are displaying on game finish
 goal: check win state
 if all balls cleared, win
 design ball
 when all main bubbles are popped, display 'pop them all for a surprise...'
 button becomes clickable
-implement background
+// implement background
 write letter
 scroll from top of the box
+if ball below threshold, lose - reset
+mark balls with photos with hearts
+when all photos display, display 'button'
+don't let it be clickable until all bubbles are popped
 
 randomly assign photos to bubbles
 31 / 46 have photos
 
-if ball below threshold, lose
-else, lower stage after x turns
-(slide embarrassing photo from the top)
-save the letter until all bubbles are popped
-
 // goal: add more photos
-new balls should not have hearts
+// new balls should not have hearts
 
 // 31 - 8 x 4.
 
@@ -70,3 +70,8 @@ new balls should not have hearts
 
 
 option: smoothly move the ball upon stick
+option: lower stage after x turns
+  (slide embarrassing photo from the top)
+option: animate background
+balls
+snow

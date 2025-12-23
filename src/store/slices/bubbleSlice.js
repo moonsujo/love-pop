@@ -159,7 +159,11 @@ const bubbleSlice = createSlice({
         for (let j = 0; j < state.bubbles[i].length; j++) {
           const key = `${i}, ${j}`;
           if (state.bubbles[i][j] && !visited.has(key)) {
+            const poppedBubble = state.bubbles[i][j];
             state.bubbles[i][j] = null;
+            if (poppedBubble.hasPhoto) {
+              state.photos[poppedBubble.photoIndex].popped = true
+            }
           }
         }
       }

@@ -5,6 +5,7 @@ import { Perf } from "r3f-perf";
 import Shooter from "./Shooter";
 import Photos from "./Photos";
 import Background from "./Background";
+import { BOX_POSITION } from "./constants";
 
 export default function Experience() {
 
@@ -13,17 +14,17 @@ export default function Experience() {
       <OrthographicCamera 
         makeDefault
         zoom={20}
-        position={[0, 0, 5]}
+        position={[0, 0, 20]}
       />
       <OrbitControls/>
       {/* <Perf/>  */}
       <Lights/>
     </group>
-    <group name='scene' scale={1.3} position={[38, 0, 0]}>
-      <Level/>
-      <Shooter/>
-      <Photos/>
+    <group name='scene' scale={1.3} >
+      <Level position={BOX_POSITION}/>
+      <Shooter position={BOX_POSITION}/>
+      <Photos position={[0, 0, -1]} scale={1}/>
     </group>
-    <Background/>
+    <Background position={[0, 0, -10]}/>
   </>
 }

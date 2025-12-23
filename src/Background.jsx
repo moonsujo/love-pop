@@ -6,7 +6,7 @@ import { Gift2 } from "./meshes/Gift2";
 import { Gift3 } from "./meshes/Gift3";
 import { Gift4 } from "./meshes/Gift4";
 
-export default function Background() {
+export default function Background(props) {
 
   function Title(props) {
     return <Text3D {...props} 
@@ -41,16 +41,18 @@ export default function Background() {
     </Text3D>
   }
   return (
-    <>
+    <group {...props}>
       <Title position={[-45, 15, 0]} />
       <Details position={[-45, 9, 0]} />
-      <ChristmasTree position={[15, -24, -5]} scale={5} />
-      <Gift0 position={[11, -24, 0]} scale={11} />
-      <Gift1 position={[15, -24, 0]} scale={11} />
-      <Gift2 position={[14, -24, 0]} scale={11} />
-      <Gift3 position={[11, -24, 0]} scale={20} />
-      <Gift4 position={[-4, -24, 3]} scale={15} />
+      <group name='gifts-and-tree' position={[23, -24, 0]}>
+        <ChristmasTree position={[4, 0, 0]} scale={5} />
+        <Gift0 position={[0, 0, 0]} scale={11} />
+        <Gift1 position={[4, 0, 0]} scale={11} />
+        <Gift2 position={[3, 0, 0]} scale={11} />
+        <Gift3 position={[0, 0, 0]} scale={20} />
+        <Gift4 position={[-15, 0, 3]} scale={15} />
+      </group>
       {/* <ChristmasBackground position={[0, -20, -50]}scale={30}/> */}
-    </>
+    </group>
   )
 }

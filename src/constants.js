@@ -18,12 +18,18 @@ export const DIRECTIONS_ODD = [
 ]
 export const LEVEL_OFFSET_X = -(BOX_WIDTH / 2) + BUBBLE_RADIUS
 export const LEVEL_OFFSET_Y = (BOX_HEIGHT / 2) - BUBBLE_RADIUS
-// didn't work when I put it in a separate file
 
+export const PHOTO_HEIGHT = 10
+export const PHOTO_WIDTH = 10
+export const PHOTO_X_SPACE = -1/9 * PHOTO_WIDTH
+export const BOX_POSITION = [38, 0, 0]
+export const PHOTO_POSITION = [-12, 0, 0]
+
+// didn't work when I put it in a separate file
 export const photos = [
     { url: "images/aquariumKiss.JPG", row: 2, col: 4 },
     { url: "images/christmasPhotoOp.JPG", row: 9, col: 3 },
-    { url: "images/colorfulHeart.JPG", row: 2, col: 6 },
+    { url: "images/colorfulHeart.JPG", row: 8, col: 3 },
     { url: "images/fingerHearts.JPG", row: 2, col: 5 },
     { url: "images/flight.JPG", row: 5, col: 4 },
     { url: "images/flowerGarden.JPG", row: 4, col: 4 },

@@ -3,14 +3,12 @@ import { useSelector } from "react-redux"
 import { bubbleMaterials, sphereGeometry } from "./Optimizations"
 import { GiftBowtie } from "./meshes/GiftBowtie"
 
-export default function Level({ scale=1 }) {
+export default function Level({ position=[0,0,0], scale=1 }) {
 
-  // get bubbles
-  // 8, 7, 8
   const bubbles = useSelector((state) => state.bubble.bubbles)
 
   const frameWidth = 1
-  return <group scale={scale}>
+  return <group scale={scale} position={position}>
     { bubbles.map((bubbleRow, rowIndex) => (
       bubbleRow.map((bubble, index) => {
         if (bubble) {

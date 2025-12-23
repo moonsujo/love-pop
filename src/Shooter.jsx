@@ -7,7 +7,7 @@ import { BOX_WIDTH, BOX_HEIGHT, BUBBLE_RADIUS, NUM_BUBBLES_TO_REMOVE } from "./c
 import { bubbleMaterials, sphereGeometry } from "./Optimizations"
 import useAttachBubble from "./useAttachBubble"
 
-export default function Shooter(){
+export default function Shooter({ position=[0,0,0], scale=1 }) {
 
   const dispatch = useDispatch()
   const bubbleShot = useSelector((state) => state.bubble.shot)
@@ -143,10 +143,10 @@ export default function Shooter(){
     </group>
   }
   
-  return <>
+  return <group scale={scale} position={position}>
     <mesh ref={bubble} position={bubbleOrigin} geometry={sphereGeometry} material={bubbleMaterials[bubblesLoaded[0].color]} />
     <group name='arrow' ref={arrow} rotation={[0, 0, 0]} position={bubbleOrigin}>
       <Arrow position={[0, arrowLength / 2, 0]} />
     </group>
-  </>
+  </group>
 }
