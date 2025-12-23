@@ -1,4 +1,4 @@
-import { BOX_HEIGHT, BOX_WIDTH, BUBBLE_RADIUS } from "./constants"
+import { BOX_HEIGHT, BOX_WIDTH, BUBBLE_RADIUS, LEVEL_OFFSET_X, LEVEL_OFFSET_Y } from "./constants"
 import { useSelector } from "react-redux"
 import { bubbleMaterials, sphereGeometry } from "./Optimizations"
 import { GiftBowtie } from "./meshes/GiftBowtie"
@@ -17,8 +17,8 @@ export default function Level({ scale=1 }) {
           return <mesh 
             geometry={sphereGeometry}
             material={bubbleMaterials[bubble.color]}
-            position-x={ bubble.position.x - (BOX_WIDTH / 2) + BUBBLE_RADIUS } 
-            position-y={ bubble.position.y + (BOX_HEIGHT / 2) - BUBBLE_RADIUS }
+            position-x={ bubble.position.x + LEVEL_OFFSET_X } 
+            position-y={ bubble.position.y + LEVEL_OFFSET_Y }
             position-z={ rowIndex === 0 ? -5 : 0}
             key={`${rowIndex}-${index}`}>
           </mesh>

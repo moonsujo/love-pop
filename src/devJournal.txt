@@ -36,6 +36,9 @@ implement background
 write letter
 scroll from top of the box
 
+randomly assign photos to bubbles
+31 / 46 have photos
+
 if ball below threshold, lose
 else, lower stage after x turns
 (slide embarrassing photo from the top)

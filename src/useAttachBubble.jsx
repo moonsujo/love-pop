@@ -13,7 +13,6 @@ export default function useAttachBubble() {
     function attachRight() {
       attachedRow = row;
       attachedCol = col + 1;
-      console.log('ATTACH RIGHT, row', row, 'col', col);
       attachPosition = {
         x: bubbles[row][col].position.x + 2 * BUBBLE_RADIUS,
         y: bubbles[row][col].position.y
@@ -22,7 +21,6 @@ export default function useAttachBubble() {
     function attachRightTop() {
       attachedRow = row-1;
       attachedCol = row % 2 === 1 ? col : col + 1;
-      console.log('ATTACH RIGHT TOP, row', row, 'col', col);
       attachPosition = {
         x: bubbles[row][col].position.x + BUBBLE_RADIUS,
         y: -(row-1 - inivisibleRowShift) * Y_GAP
@@ -31,7 +29,6 @@ export default function useAttachBubble() {
     function attachLeft() {
       attachedRow = row;
       attachedCol = col - 1;
-      console.log('ATTACH LEFT, row', row, 'col', col);
       attachPosition = {
         x: bubbles[row][col].position.x - 2 * BUBBLE_RADIUS,
         y: bubbles[row][col].position.y
@@ -40,7 +37,6 @@ export default function useAttachBubble() {
     function attachLeftTop() {
       attachedRow = row-1;
       attachedCol = row % 2 === 1 ? col - 1 : col;
-      console.log('ATTACH LEFT TOP, row', row, 'col', col);
       attachPosition = {
         x: bubbles[row][col].position.x - BUBBLE_RADIUS,
         y: -(row-1 - inivisibleRowShift) * Y_GAP
@@ -49,7 +45,6 @@ export default function useAttachBubble() {
     function attachLeftBottom() {
       attachedRow = row+1;
       attachedCol = row % 2 === 1 ? col - 1 : col;
-      console.log('ATTACH LEFT BOTTOM, row', row, 'col', col);
       attachPosition = {
         x: bubbles[row][col].position.x - BUBBLE_RADIUS,
         y: -(row+1 - inivisibleRowShift) * Y_GAP
@@ -58,7 +53,6 @@ export default function useAttachBubble() {
     function attachRightBottom() {
       attachedRow = row+1;
       attachedCol = row % 2 === 1 ? col : col + 1;
-      console.log('ATTACH RIGHT BOTTOM, row', row, 'col', col);
       attachPosition = {
         x: bubbles[row][col].position.x + BUBBLE_RADIUS,
         y: -(row+1 - inivisibleRowShift) * Y_GAP

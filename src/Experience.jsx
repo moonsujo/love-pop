@@ -22,8 +22,8 @@ export default function Experience() {
     <group name='scene' scale={1.3} position={[38, 0, 0]}>
       <Level/>
       <Shooter/>
+      <Photos/>
     </group>
     <Background/>
-    <Photos/>
   </>
 }

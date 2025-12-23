@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { levelHeartBubbles } from "../../levels/heart";
-import { DIRECTIONS_EVEN, DIRECTIONS_ODD, NUM_BUBBLES_EVEN, NUM_BUBBLES_ODD, NUM_BUBBLES_TO_REMOVE, Y_GAP } from "../../constants";
+import { DIRECTIONS_EVEN, DIRECTIONS_ODD, NUM_BUBBLES_EVEN, NUM_BUBBLES_ODD, NUM_BUBBLES_TO_REMOVE, photos, Y_GAP } from "../../constants";
 
 const bubbleSlice = createSlice({
   name: 'bubble',
@@ -13,7 +13,9 @@ const bubbleSlice = createSlice({
       { color: 'pink' }
     ],
     attachedBubble: { row: null, col: null, color: null },
-    poppedBubbles: [],
+    photos: photos,
+    numPoppedPhotos: 0
+    // refactor to take in photos from public folder or external source
   },
   reducers: {
     setBubbleShot(state, action) {
@@ -51,20 +53,17 @@ const bubbleSlice = createSlice({
       state.bubbles[attachedRow][attachedCol] = {
         position: { ...attachPosition },
         color: attachColor,
-        hasPhoto: false
+        hasPhoto: false,
+        index: null
       }
     },
     popBubbles(state, action) {
-
-      // clear popped bubbles
-      state.poppedBubbles = [];
 
       function searchMatchingBubblesHelper(row, col, color) {
         return searchMatchingBubbles(row, col, new Set(), [], color)
       }
 
       function searchMatchingBubbles(row, col, visited=new Set(), matchingBubbles=[], color) {
-        console.log("SEARCHING BUBBLES AT ROW", row, "COL", col)
         // out of bounds
         if (row < 1 || row >= state.bubbles.length || !state.bubbles[row]) return matchingBubbles
         if (col < 0 || col >= state.bubbles[row].length || !state.bubbles[row][col]) return matchingBubbles
@@ -75,7 +74,6 @@ const bubbleSlice = createSlice({
 
         // DFS to find all connected bubbles of the same color
         const targetColor = state.bubbles[row][col].color
-        console.log("TARGET COLOR:", targetColor, "SEARCH COLOR:", color)
         if (targetColor !== color) return matchingBubbles
         matchingBubbles.push([row, col])
 
@@ -109,13 +107,15 @@ const bubbleSlice = createSlice({
 
       const { row, col, color } = action.payload;
       const matchingBubbles = searchMatchingBubblesHelper(row, col, color);
-      console.log('MATCHING BUBBLES TO POP:', matchingBubbles);
       if (matchingBubbles.length < NUM_BUBBLES_TO_REMOVE) return; // need at least 3 to pop
-      console.log('popping', matchingBubbles);
       for (const [row, col] of matchingBubbles) {
         const poppedBubble = state.bubbles[row][col]
-        state.poppedBubbles.push(poppedBubble);// add to popped bubbles
+        poppedBubble.row = row;
+        poppedBubble.col = col;
         state.bubbles[row][col] = null; // remove bubble
+        if (poppedBubble.hasPhoto) {
+          state.photos[poppedBubble.photoIndex].popped = true
+        }
       }
     },
     dropBubbles(state) {

@@ -16,3 +16,40 @@ export const DIRECTIONS_ODD = [
   [-1, 0], [1, 0],
   [0, -1], [1, -1]
 ]
+export const LEVEL_OFFSET_X = -(BOX_WIDTH / 2) + BUBBLE_RADIUS
+export const LEVEL_OFFSET_Y = (BOX_HEIGHT / 2) - BUBBLE_RADIUS
+// didn't work when I put it in a separate file
+
+export const photos = [
+    { url: "images/aquariumKiss.JPG", row: 2, col: 4 },
+    { url: "images/christmasPhotoOp.JPG", row: 9, col: 3 },
+    { url: "images/colorfulHeart.JPG", row: 2, col: 6 },
+    { url: "images/fingerHearts.JPG", row: 2, col: 5 },
+    { url: "images/flight.JPG", row: 5, col: 4 },
+    { url: "images/flowerGarden.JPG", row: 4, col: 4 },
+    { url: "images/gogiThe.JPG", row: 5, col: 6 },
+    { url: "images/gogiWrap.JPG", row: 1, col: 2 },
+    { url: "images/handHeart.JPG", row: 6, col: 5 },
+    { url: "images/hollywoodHalloween.JPG", row: 2, col: 1 },
+    { url: "images/iHeartRadio.JPG", row: 8, col: 2 },
+    { url: "images/laCity.JPG", row: 2, col: 0 },
+    { url: "images/lafc.JPG", row: 4, col: 3 },
+    { url: "images/museumOfIllusions2.JPG", row: 7, col: 2 },
+    { url: "images/newJeansPotobox.JPG", row: 3, col: 2 },
+    { url: "images/pastry.JPG", row: 4, col: 2 },
+    { url: "images/photoStudio.JPG", row: 4, col: 0 },
+    { url: "images/eyebrow.JPG", row: 5, col: 1 },
+    { url: "images/reflection.JPG", row: 7, col: 3 },
+    { url: "images/rgbHeart.JPG", row: 1, col: 1 },
+    { url: "images/runClub.JPG", row: 3, col: 6 },
+    { url: "images/sevenMagicMountains.JPG", row: 7, col: 4 },
+    { url: "images/shrek.JPG", row: 6, col: 2 },
+    { url: "images/disneyland.JPG", row: 2, col: 2 },
+    { url: "images/sojuFrog.JPG", row: 3, col: 5 },
+    { url: "images/tudum.JPG", row: 5, col: 2 },
+    { url: "images/vegasEiffelTower.JPG", row: 8, col: 4 },
+    { url: "images/wangoTangoPhoto.JPG", row: 6, col: 3 },
+    { url: "images/whaleWatching.JPG", row: 4, col: 6 },
+    { url: "images/zooKiss.JPG", row: 7, col: 5 },
+    { url: "images/pixelatedMV.JPG", row: 6, col: 1 },
+]

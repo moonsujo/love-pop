@@ -1,0 +1,6 @@
+make a photo component
+for each photo, assign it an initial position and end position
+on useEffect of 'poppedPhotos', check if that photo was altered
+if yes, animate
+
+remove bubbles on pop to reduce number of neighbor search

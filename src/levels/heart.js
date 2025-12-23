@@ -1,358 +1,362 @@
 import { BUBBLE_RADIUS, Y_GAP } from "../constants";
 
 // pinned to the left top corner of the box
+
+// optimization: 
+// put all elements with position
+// select certain bubbles to have bubbles
+// select certain bubbles to have photos
+export const calculatePositionX = (col, isEvenRow) => {
+  if (isEvenRow) {
+    return col * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS;
+  } else {
+    return col * 2 * BUBBLE_RADIUS;
+  }
+}
+export const calculatePositionY = (row) => {  
+  return (-row + 1) * Y_GAP;
+}
 export const levelHeartBubbles = [
   [ 
     { 
       position: { 
-        x: 0 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: 1 * Y_GAP
+        x: calculatePositionX(0, true),
+        y: calculatePositionY(0)
       }, 
       color: 'invisible',
       hasPhoto: false
     }, 
     { 
       position: { 
-        x: 1 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: 1 * Y_GAP
+        x: calculatePositionX(1, true),
+        y: calculatePositionY(0)
       }, 
       color: 'invisible',
-      hasPhoto: false
+      hasPhoto: false,
     }, 
     { 
       position: { 
-        x: 2 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: 1 * Y_GAP
+        x: calculatePositionX(2, true),
+        y: calculatePositionY(0)
       }, 
       color: 'invisible', 
       hasPhoto: false
     }, 
     { 
       position: { 
-        x: 3 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: 1 * Y_GAP
+        x: calculatePositionX(3, true),
+        y: calculatePositionY(0)
       }, 
       color: 'invisible',
-      hasPhoto: false 
+      hasPhoto: false
     }, 
     { 
       position: { 
-        x: 4 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: 1 * Y_GAP
+        x: calculatePositionX(4, true),
+        y: calculatePositionY(0)
       }, 
       color: 'invisible',
-      hasPhoto: false 
+      hasPhoto: false
     }, 
     { 
       position: { 
-        x: 5 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: 1 * Y_GAP
+        x: calculatePositionX(5, true),
+        y: calculatePositionY(0)
       }, 
       color: 'invisible',
-      hasPhoto: false 
+      hasPhoto: false
     },
     { 
       position: { 
-        x: 6 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: 1 * Y_GAP
+        x: calculatePositionX(6, true),
+        y: calculatePositionY(0)
       }, 
       color: 'invisible',
-      hasPhoto: false 
+      hasPhoto: false
     },
   ],
   [ 
     null, 
     { 
       position: { 
-        x: 1 * 2 * BUBBLE_RADIUS, 
-        y: 0 * 2 * BUBBLE_RADIUS
+        x: calculatePositionX(1, false),
+        y: calculatePositionY(1)
       }, 
       color: 'red',
       hasPhoto: true,
-      index: 17
+      photoIndex: 12
     }, 
     { 
       position: { 
-        x: 2 * 2 * BUBBLE_RADIUS, 
-        y: 0 * 2 * BUBBLE_RADIUS
+        x: calculatePositionX(2, false),
+        y: calculatePositionY(1)
       }, 
       color: 'red',
       hasPhoto: true,
-      index: 5
+      photoIndex: 28
     }, 
     null, 
     null, 
     { 
       position: { 
-        x: 5 * 2 * BUBBLE_RADIUS, 
-        y: 0 * 2 * BUBBLE_RADIUS
+        x: calculatePositionX(5, false),
+        y: calculatePositionY(1)
       }, 
       color: 'pink',
-      hasPhoto: true,
-      index: 28
+      hasPhoto: false
     }, 
     { 
       position: { 
-        x: 6 * 2 * BUBBLE_RADIUS, 
-        y: 0 * 2 * BUBBLE_RADIUS
+        x: calculatePositionX(6, false),
+        y: calculatePositionY(1)
       }, 
       color: 'pink',
-      hasPhoto: true,
-      index: 11
+      hasPhoto: false
     },
     null 
   ],
   [ 
     { 
       position: { 
-        x: 0 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: -1 * Y_GAP
+        x: calculatePositionX(0, true),
+        y: calculatePositionY(2)
       }, 
       color: 'red',
       hasPhoto: true,
-      index: 0
+      photoIndex: 5
     }, 
     { 
       position: { 
-        x: 1 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: -1 * Y_GAP
+        x: calculatePositionX(1, true),
+        y: calculatePositionY(2)
       }, 
       color: 'red',
       hasPhoto: true,
-      index: 22
+      photoIndex: 19
     }, 
     { 
       position: { 
-        x: 2 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: -1 * Y_GAP
+        x: calculatePositionX(2, true),
+        y: calculatePositionY(2)
       }, 
       color: 'red',
       hasPhoto: true,
-      index: 8
+      photoIndex: 7
     }, 
     null, 
     { 
       position: { 
-        x: 4 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: -1 * Y_GAP
+        x: calculatePositionX(4, true),
+        y: calculatePositionY(2)
       }, 
       color: 'pink',
       hasPhoto: true,
-      index: 30
+      photoIndex: 22
     }, 
     { 
       position: { 
-        x: 5 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: -1 * Y_GAP
+        x: calculatePositionX(5, true),
+        y: calculatePositionY(2)
       }, 
       color: 'pink',
       hasPhoto: true,
-      index: 14
+      photoIndex: 14
     },
     { 
       position: { 
-        x: 6 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: -1 * Y_GAP
+        x: calculatePositionX(6, true),
+        y: calculatePositionY(2)
       }, 
       color: 'pink',
       hasPhoto: true,
-      index: 2
+      photoIndex: 30
     },
   ],
   [ 
     { 
       position: { 
-        x: 0 * 2 * BUBBLE_RADIUS, 
-        y: -2 * Y_GAP
+        x: calculatePositionX(0, false),
+        y: calculatePositionY(3)
       }, 
       color: 'purple',
-      hasPhoto: true,
-      index: 25
+      hasPhoto: false
     }, 
     { 
       position: { 
-        x: 1 * 2 * BUBBLE_RADIUS, 
-        y: -2 * Y_GAP
+        x: calculatePositionX(1, false),
+        y: calculatePositionY(3)
       }, 
       color: 'purple',
-      hasPhoto: true,
-      index: 19
+      hasPhoto: false
     }, 
     { 
       position: { 
-        x: 2 * 2 * BUBBLE_RADIUS, 
-        y: -2 * Y_GAP
+        x: calculatePositionX(2, false),
+        y: calculatePositionY(3)
       }, 
       color: 'orange',
       hasPhoto: true,
-      index: 6
+      photoIndex: 3
     }, 
     { 
       position: { 
-        x: 3 * 2 * BUBBLE_RADIUS, 
-        y: -2 * Y_GAP
+        x: calculatePositionX(3, false),
+        y: calculatePositionY(3)
       }, 
       color: 'orange',
-      hasPhoto: true,
-      index: 29
+      hasPhoto: false
     }, 
     { 
       position: { 
-        x: 4 * 2 * BUBBLE_RADIUS, 
-        y: -2 * Y_GAP
+        x: calculatePositionX(4, false),
+        y: calculatePositionY(3)
+      }, 
+      color: 'purple',
+      hasPhoto: false
+    }, 
+    { 
+      position: { 
+        x: calculatePositionX(5, false),
+        y: calculatePositionY(3)
       }, 
       color: 'purple',
       hasPhoto: true,
-      index: 12
+      photoIndex: 17
     }, 
     { 
       position: { 
-        x: 5 * 2 * BUBBLE_RADIUS, 
-        y: -2 * Y_GAP
-      }, 
-      color: 'purple',
-      hasPhoto: true,
-      index: 3
-    }, 
-    { 
-      position: { 
-        x: 6 * 2 * BUBBLE_RADIUS, 
-        y: -2 * Y_GAP
+        x: calculatePositionX(6, false),
+        y: calculatePositionY(3)
       }, 
       color: 'red',
       hasPhoto: true,
-      index: 23
+      photoIndex: 11
     },
     { 
       position: { 
-        x: 7 * 2 * BUBBLE_RADIUS, 
-        y: -2 * Y_GAP
+        x: calculatePositionX(7, false),
+        y: calculatePositionY(3)
       }, 
       color: 'red',
-      hasPhoto: true,
-      index: 9
+      hasPhoto: false
     },
   ],
   [ 
     { 
       position: { 
-        x: 0 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: -3 * Y_GAP
+        x: calculatePositionX(0, true),
+        y: calculatePositionY(4)
       }, 
       color: 'purple',
       hasPhoto: true,
-      index: 26
+      photoIndex: 25
     }, 
     { 
       position: { 
-        x: 1 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: -3 * Y_GAP
+        x: calculatePositionX(1, true),
+        y: calculatePositionY(4)
+      }, 
+      color: 'orange',
+      hasPhoto: false
+    }, 
+    { 
+      position: { 
+        x: calculatePositionX(2, true),
+        y: calculatePositionY(4)
       }, 
       color: 'orange',
       hasPhoto: true,
-      index: 16
+      photoIndex: 9
     }, 
     { 
       position: { 
-        x: 2 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: -3 * Y_GAP
-      }, 
-      color: 'orange',
-      hasPhoto: true,
-      index: 1
-    }, 
-    { 
-      position: { 
-        x: 3 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: -3 * Y_GAP
+        x: calculatePositionX(3, true),
+        y: calculatePositionY(4)
       }, 
       color: 'purple',
       hasPhoto: true,
-      index: 20
+      photoIndex: 20
     }, 
     { 
       position: { 
-        x: 4 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: -3 * Y_GAP
+        x: calculatePositionX(4, true),
+        y: calculatePositionY(4)
       }, 
       color: 'purple',
       hasPhoto: true,
-      index: 13
+      photoIndex: 30
     }, 
     { 
       position: { 
-        x: 5 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: -3 * Y_GAP
+        x: calculatePositionX(5, true),
+        y: calculatePositionY(4)
       }, 
       color: 'red',
-      hasPhoto: true,
-      index: 27
+      hasPhoto: false
     },
     { 
       position: { 
-        x: 6 * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS, 
-        y: -3 * Y_GAP
+        x: calculatePositionX(6, true),
+        y: calculatePositionY(4)
       }, 
       color: 'red',
       hasPhoto: true,
-      index: 10
+      photoIndex: 23
     },
   ],
   [ 
     null, 
     { 
       position: { 
-        x: 1 * 2 * BUBBLE_RADIUS, 
-        y: -4 * Y_GAP
+        x: calculatePositionX(1, false),
+        y: calculatePositionY(5)
       }, 
       color: 'pink',
       hasPhoto: true,
-      index: 7
+      photoIndex: 8
     }, 
     { 
       position: { 
-        x: 2 * 2 * BUBBLE_RADIUS, 
-        y: -4 * Y_GAP
+        x: calculatePositionX(2, false),
+        y: calculatePositionY(5)
       }, 
       color: 'pink',
       hasPhoto: true,
-      index: 24
+      photoIndex: 24
     }, 
     { 
       position: { 
-        x: 3 * 2 * BUBBLE_RADIUS, 
-        y: -4 * Y_GAP
+        x: calculatePositionX(3, false),
+        y: calculatePositionY(5)
+      }, 
+      color: 'red',
+      hasPhoto: false
+    }, 
+    { 
+      position: { 
+        x: calculatePositionX(4, false),
+        y: calculatePositionY(5)
       }, 
       color: 'red',
       hasPhoto: true,
-      index: 15
+      photoIndex: 16
     }, 
     { 
       position: { 
-        x: 4 * 2 * BUBBLE_RADIUS, 
-        y: -4 * Y_GAP
+        x: calculatePositionX(5, false),
+        y: calculatePositionY(5)
       }, 
-      color: 'red',
-      hasPhoto: true,
-      index: 4
+      color: 'orange',
+      hasPhoto: false
     }, 
     { 
       position: { 
-        x: 5 * 2 * BUBBLE_RADIUS, 
-        y: -4 * Y_GAP
+        x: calculatePositionX(6, false),
+        y: calculatePositionY(5)
       }, 
       color: 'orange',
       hasPhoto: true,
-      index: 21
-    }, 
-    { 
-      position: { 
-        x: 6 * 2 * BUBBLE_RADIUS, 
-        y: -4 * Y_GAP
-      }, 
-      color: 'orange',
-      hasPhoto: true,
-      index: 18
+      photoIndex: 6
     }, 
     null 
   ],
@@ -360,48 +364,47 @@ export const levelHeartBubbles = [
     null,
     { 
       position: { 
-        x: 2 * 2 * BUBBLE_RADIUS - BUBBLE_RADIUS, 
-        y: -5 * Y_GAP
+        x: calculatePositionX(1, true),
+        y: calculatePositionY(6)
       }, 
       color: 'pink',
       hasPhoto: true,
-      index: 30
+      photoIndex: 27
     }, 
     { 
       position: { 
-        x: 3 * 2 * BUBBLE_RADIUS - BUBBLE_RADIUS, 
-        y: -5 * Y_GAP
+        x: calculatePositionX(2, true),
+        y: calculatePositionY(6)
       }, 
       color: 'pink',
       hasPhoto: true,
-      index: 15
+      photoIndex: 13
     }, 
     { 
       position: { 
-        x: 4 * 2 * BUBBLE_RADIUS - BUBBLE_RADIUS, 
-        y: -5 * Y_GAP
+        x: calculatePositionX(3, true),
+        y: calculatePositionY(6)
       }, 
       color: 'red',
       hasPhoto: true,
-      index: 25
+      photoIndex: 21
     }, 
     { 
       position: { 
-        x: 5 * 2 * BUBBLE_RADIUS - BUBBLE_RADIUS, 
-        y: -5 * Y_GAP
+        x: calculatePositionX(4, true),
+        y: calculatePositionY(6)
       }, 
       color: 'orange',
-      hasPhoto: true,
-      index: 7
+      hasPhoto: false
     }, 
     { 
       position: { 
-        x: 6 * 2 * BUBBLE_RADIUS - BUBBLE_RADIUS, 
-        y: -5 * Y_GAP
+        x: calculatePositionX(5, true),
+        y: calculatePositionY(6)
       }, 
       color: 'orange',
       hasPhoto: true,
-      index: 17
+      photoIndex: 4
     }, 
     null,
   ],
@@ -410,39 +413,39 @@ export const levelHeartBubbles = [
     null,
     { 
       position: { 
-        x: 2 * 2 * BUBBLE_RADIUS, 
-        y: -6 * Y_GAP
+        x: calculatePositionX(2, false),
+        y: calculatePositionY(7)
       }, 
       color: 'purple',
       hasPhoto: true,
-      index: 6
+      photoIndex: 10
     }, 
     { 
       position: { 
-        x: 3 * 2 * BUBBLE_RADIUS, 
-        y: -6 * Y_GAP
+        x: calculatePositionX(3, false),
+        y: calculatePositionY(7)
       }, 
       color: 'purple',
       hasPhoto: true,
-      index: 11
+      photoIndex: 18
     }, 
     { 
       position: { 
-        x: 4 * 2 * BUBBLE_RADIUS, 
-        y: -6 * Y_GAP
+        x: calculatePositionX(4, false),
+        y: calculatePositionY(7)
       }, 
       color: 'pink',
       hasPhoto: true,
-      index: 19
+      photoIndex: 26
     }, 
     { 
       position: { 
-        x: 5 * 2 * BUBBLE_RADIUS, 
-        y: -6 * Y_GAP
+        x: calculatePositionX(5, false),
+        y: calculatePositionY(7)
       }, 
       color: 'pink',
       hasPhoto: true,
-      index: 3
+      photoIndex: 15
     }, 
     null,
     null 
@@ -452,30 +455,30 @@ export const levelHeartBubbles = [
     null,
     { 
       position: { 
-        x: 3 * 2 * BUBBLE_RADIUS - BUBBLE_RADIUS, 
-        y: -7 * Y_GAP
+        x: calculatePositionX(2, true),
+        y: calculatePositionY(8)
       }, 
       color: 'purple',
       hasPhoto: true,
-      index: 23
+      photoIndex: 29
     }, 
     { 
       position: { 
-        x: 4 * 2 * BUBBLE_RADIUS - BUBBLE_RADIUS, 
-        y: -7 * Y_GAP
+        x: calculatePositionX(3, true),
+        y: calculatePositionY(8)
       }, 
       color: 'pink',
       hasPhoto: true,
-      index: 9
+      photoIndex: 2
     }, 
     { 
       position: { 
-        x: 5 * 2 * BUBBLE_RADIUS - BUBBLE_RADIUS, 
-        y: -7 * Y_GAP
+        x: calculatePositionX(4, true),
+        y: calculatePositionY(8)
       }, 
       color: 'pink',
       hasPhoto: true,
-      index: 26
+      photoIndex: 1
     }, 
     null,
     null,
@@ -486,21 +489,20 @@ export const levelHeartBubbles = [
     null,
     { 
       position: { 
-        x: 3 * 2 * BUBBLE_RADIUS, 
-        y: -8 * Y_GAP
+        x: calculatePositionX(3, false),
+        y: calculatePositionY(9)
       }, 
       color: 'red',
       hasPhoto: true,
-      index: 16
+      photoIndex: 0
     }, 
     { 
       position: { 
-        x: 4 * 2 * BUBBLE_RADIUS, 
-        y: -8 * Y_GAP
+        x: calculatePositionX(4, false),
+        y: calculatePositionY(9)
       }, 
       color: 'red',
-      hasPhoto: true,
-      index: 1
+      hasPhoto: false
     }, 
     null,
     null,
@@ -512,12 +514,11 @@ export const levelHeartBubbles = [
     null,
     { 
       position: { 
-        x: 4 * 2 * BUBBLE_RADIUS - BUBBLE_RADIUS, 
-        y: -9 * Y_GAP
+        x: calculatePositionX(3, true),
+        y: calculatePositionY(10)
       }, 
       color: 'red',
-      hasPhoto: true,
-      index: 20
+      hasPhoto: false
     }, 
     null,
     null,
