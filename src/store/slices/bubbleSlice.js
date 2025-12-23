@@ -13,6 +13,7 @@ const bubbleSlice = createSlice({
       { color: 'pink' }
     ],
     attachedBubble: { row: null, col: null, color: null },
+    poppedBubbles: [],
   },
   reducers: {
     setBubbleShot(state, action) {
@@ -49,10 +50,15 @@ const bubbleSlice = createSlice({
       console.log('ATTACH BUBBLE IN SLICE at row', attachedRow, 'col', attachedCol, 'position', attachPosition, 'color', attachColor);
       state.bubbles[attachedRow][attachedCol] = {
         position: { ...attachPosition },
-        color: attachColor
+        color: attachColor,
+        hasPhoto: false
       }
     },
     popBubbles(state, action) {
+
+      // clear popped bubbles
+      state.poppedBubbles = [];
+
       function searchMatchingBubblesHelper(row, col, color) {
         return searchMatchingBubbles(row, col, new Set(), [], color)
       }
@@ -107,6 +113,8 @@ const bubbleSlice = createSlice({
       if (matchingBubbles.length < NUM_BUBBLES_TO_REMOVE) return; // need at least 3 to pop
       console.log('popping', matchingBubbles);
       for (const [row, col] of matchingBubbles) {
+        const poppedBubble = state.bubbles[row][col]
+        state.poppedBubbles.push(poppedBubble);// add to popped bubbles
         state.bubbles[row][col] = null; // remove bubble
       }
     },

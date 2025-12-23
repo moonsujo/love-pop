@@ -1,25 +1,78 @@
 import { Image } from "@react-three/drei";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { animated, useSpring } from "@react-spring/three";
 
 export default function Photos() {
-  // get photos as array from state
-  // when new photos are added
-  // shoot them from the bubble to the background
-  // each should have a center and a random amount of rotation so they look scattered
-  // each bubble should have a corresponding photo
-  // new bubbles don't have photos. mark them separately
-  // 31 photos total
-  // 4 x 8 grid
-  // on the last spot, display message
-  // congrats! you unlocked a letter
-  // click to open your letter
-  const numPhotoRows = 4
-  const numPhotoColumns = 8
-  const photoHeight = 17
-  const photoWidth = 18
-  const photoXSpace = -2
-  const positionXLeft = - (photoWidth + photoXSpace) * numPhotoColumns / 2 + photoWidth / 2
-  const positionYTop = photoHeight * numPhotoRows / 2 - photoHeight / 2
-  const rotationFactor = 0.15
+  // photo elements
+  // lay them all out with springs
+  // initially, put them on the bubble location
+    // offset by box location
+  // then animate to final position in grid
+
+  // bubbles popped state
+  // on state change (use effect)
+  // for each bubble
+  // if there is a photo
+  // animate to grid position
+
+  const poppedBubbles = useSelector((state) => state.bubble.poppedBubbles);
+  const bubbles = useSelector((state) => state.bubble.bubbles);
+
+  const fromInitial = {}
+  for (const bubble of bubbles) {
+    if (bubble && bubble.hasPhoto) {
+      fromInitial[`${bubble.index}`] = {}
+      fromInitial[`${bubble.index}`].position = bubble.position;
+      fromInitial[`${bubble.index}`].scale = [5, 5, 1];
+      fromInitial[`${bubble.index}`].rotation = [0, 0, 0];
+    }
+  }
+
+  const [springs, api] = useSpring(() => ({
+    from: fromInitial
+  }))
+
+  function getGridPosition(index) {
+    const numPhotoRows = 4
+    const numPhotoColumns = 8
+    const photoHeight = 17
+    const photoWidth = 18
+    const photoXSpace = -2
+    const positionXLeft = - (photoWidth + photoXSpace) * numPhotoColumns / 2 + photoWidth / 2
+    const positionYTop = photoHeight * numPhotoRows / 2 - photoHeight / 2
+    const rotationFactor = 0.15
+
+    const row = Math.floor(index / numPhotoColumns)
+    const col = index % numPhotoColumns
+
+    return {
+      position: [positionXLeft + col * (photoWidth + photoXSpace), positionYTop - row * photoHeight, 0],
+      scale: [photoWidth + Math.random(), photoHeight + Math.random(), 1],
+      rotation: [0, 0, (Math.random() - 0.5) * rotationFactor],
+    }
+  }
+
+  useEffect(() => {
+    // subscribe to bubble popped state
+    // on change, trigger animation
+    console.log('popped bubbles in Photos', poppedBubbles);
+    const from = {}
+    const to = []
+    for (const bubble of poppedBubbles) {
+      from[`${bubble.index}`] = {}
+      from[`${bubble.index}`].position = bubble.position;
+      from[`${bubble.index}`].scale = [5, 5, 1];
+      from[`${bubble.index}`].rotation = [0, 0, 0];
+      to.push({ ...getGridPosition(bubble.index), key: `${bubble.index}` });
+    }
+
+    api.start({
+      from,
+      to
+    })
+  }, [poppedBubbles])
+
   const photos_row_0 = [
     { url: "images/aquariumKiss.JPG", },
     { url: "images/christmasPhotoOp.JPG", },
@@ -61,41 +114,33 @@ export default function Photos() {
   ] // replace with state selector when implemented
 
   return <>
-    { photos_row_0.map((photo, index) => (
-      <Image 
-        key={index}
-        url={photo.url}
-        scale={[photoWidth + Math.random(), photoHeight + Math.random(), 1]}
-        position={[positionXLeft + index * (photoWidth + photoXSpace), positionYTop, 0]}
-        rotation={[0, 0, (Math.random() - 0.5) * rotationFactor]}
-      />
-    )) }
-    { photos_row_1.map((photo, index) => (
-      <Image 
-        key={index}
-        url={photo.url}
-        scale={[photoWidth + Math.random(), photoHeight + Math.random(), 1]}
-        position={[positionXLeft + index * (photoWidth + photoXSpace), positionYTop - photoHeight, 0]}
-        rotation={[0, 0, (Math.random() - 0.5) * rotationFactor]}
-      />
-    )) }
-    { photos_row_2.map((photo, index) => (
-      <Image 
-        key={index}
-        url={photo.url}
-        scale={[photoWidth + Math.random(), photoHeight + Math.random(), 1]}
-        position={[positionXLeft + index * (photoWidth + photoXSpace), positionYTop - photoHeight * 2, 0]}
-        rotation={[0, 0, (Math.random() - 0.5) * rotationFactor]}
-      />
-    )) }
-    { photos_row_3.map((photo, index) => (
-      <Image 
-        key={index}
-        url={photo.url}
-        scale={[photoWidth + Math.random(), photoHeight + Math.random(), 1]}
-        position={[positionXLeft + index * (photoWidth + photoXSpace), positionYTop - photoHeight * 3, 0]}
-        rotation={[0, 0, (Math.random() - 0.5) * rotationFactor]}
-      />
-    )) }
+    {springs && Object.keys(springs).map((key) => {
+      const photoIndex = parseInt(key);
+      let photoData = null;
+      // find photo data from rows
+      if (photoIndex < 8) {
+        photoData = photos_row_0[photoIndex];
+      }
+      else if (photoIndex < 16) {
+        photoData = photos_row_1[photoIndex - 8];
+      }
+      else if (photoIndex < 24) {
+        photoData = photos_row_2[photoIndex - 16];
+      }
+      else {
+        photoData = photos_row_3[photoIndex - 24];
+      }
+      
+      if (!photoData) return null;
+      return <animated.group key={key} position={springs[key].position} scale={springs[key].scale} rotation={springs[key].rotation}>
+        <Image 
+          url={photoData.url} 
+          scale={1} 
+          position={[0, 0, 0]} 
+        />
+      </animated.group>
+    })}
   </>
+
+
 }

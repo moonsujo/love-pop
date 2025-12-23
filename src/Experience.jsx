@@ -8,15 +8,11 @@ import Background from "./Background";
 
 export default function Experience() {
 
-  // user input
-  // algorithm
-  // UI
-
   return <>
     <group name='scene-setup'>
       <OrthographicCamera 
         makeDefault
-        zoom={10}
+        zoom={20}
         position={[0, 0, 5]}
       />
       <OrbitControls/>
@@ -28,6 +24,6 @@ export default function Experience() {
       <Shooter/>
     </group>
     <Background/>
-    {/* <Photos/> */}
+    <Photos/>
   </>
 }
