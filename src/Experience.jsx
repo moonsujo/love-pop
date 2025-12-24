@@ -7,6 +7,8 @@ import Photos from "./Photos";
 import Background from "./Background";
 import { BOX_POSITION } from "./constants";
 import Letter from "./Letter";
+import BackgroundImage from "./BackgroundImage";
+import Snow from "./Snow";
 
 export default function Experience() {
 
@@ -27,6 +29,8 @@ export default function Experience() {
       <Photos position={[0, 0, -1]} scale={1}/>
     </group>
     <Letter/>
-    <Background position={[-10, 0, -10]}/>
+    <BackgroundImage position={[0, 0, -5]}/>
+    <Snow/>
+    {/* <BackgroundImage position={[-10, 0, -10]}/> */}
   </>
 }

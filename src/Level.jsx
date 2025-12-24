@@ -5,6 +5,7 @@ import { GiftBowtie } from "./meshes/GiftBowtie"
 import { useSpring, animated } from "@react-spring/three"
 import { useEffect } from "react"
 import { Image, Text3D } from "@react-three/drei"
+import Heart from "./Heart"
 
 export default function Level({ position=[0,0,0], scale=1 }) {
 
@@ -80,14 +81,18 @@ export default function Level({ position=[0,0,0], scale=1 }) {
     { bubbles.map((bubbleRow, rowIndex) => (
       bubbleRow.map((bubble, index) => {
         if (bubble) {
-          return <mesh 
-            geometry={sphereGeometry}
-            material={bubbleMaterials[bubble.color]}
+          return <group
             position-x={ bubble.position.x + LEVEL_OFFSET_X } 
             position-y={ bubble.position.y + LEVEL_OFFSET_Y }
             position-z={ rowIndex === 0 ? -5 : 0}
-            key={`${rowIndex}-${index}`}>
-          </mesh>
+            key={`${rowIndex}-${index}`}
+          >
+            <mesh 
+              geometry={sphereGeometry}
+              material={bubbleMaterials[bubble.color]}
+            />
+            {bubble.hasPhoto && <Heart color={bubble.color} position={[0.15, 0.25, 1]} />}
+          </group>
         }
       })
     ))}
@@ -95,7 +100,7 @@ export default function Level({ position=[0,0,0], scale=1 }) {
     <group name='background'>
       <animated.mesh receiveShadow scale={ springs.boxScale } position={springs.boxPosition}>
         <planeGeometry />
-        <meshStandardMaterial color="#F0B0FF" transparent opacity={1}/>
+        <meshStandardMaterial color="#F0B0FF" transparent opacity={0.6}/>
       </animated.mesh>
       <animated.mesh name='box-frame-left' position={springs.boxFrameLeftPosition} scale={springs.boxFrameVerticalScale}>
         <boxGeometry args={ [frameWidth, BOX_HEIGHT, 1] } />
@@ -142,7 +147,7 @@ export default function Level({ position=[0,0,0], scale=1 }) {
       </animated.group>
       { gameState === 'won' && <Text3D
         font={'fonts/sriracha.json'}
-        size={3} 
+        size={2.5} 
         height={0.5} 
         curveSegments={15} 
         bevelEnabled 
@@ -150,10 +155,10 @@ export default function Level({ position=[0,0,0], scale=1 }) {
         bevelSize={0.01} 
         bevelOffset={0} 
         bevelSegments={5} 
-        position={[-6, 0, 3]}
+        position={[-5, 0, 3]}
       >
         Clear!
-        <meshStandardMaterial color={'#b14908'} />
+        <meshStandardMaterial color={'#ea935c'} />
       </Text3D>}
     </group>
   </group>

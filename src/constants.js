@@ -22,13 +22,13 @@ export const DIRECTIONS_ODD = [
 export const LEVEL_OFFSET_X = -(BOX_WIDTH / 2) + BUBBLE_RADIUS
 export const LEVEL_OFFSET_Y = (BOX_HEIGHT / 2) - BUBBLE_RADIUS
 
-export const PHOTO_HEIGHT = 10
-export const PHOTO_WIDTH = 10
+export const PHOTO_HEIGHT = 9.5
+export const PHOTO_WIDTH = 9.5
 export const NUM_PHOTO_ROWS = 4
 export const NUM_PHOTO_COLUMNS = 8
 export const PHOTO_X_SPACE = -0.1 * PHOTO_WIDTH // negative value for overlap
-export const BOX_POSITION = [38, -1, 0]
-export const PHOTO_POSITION = [-10, 0, 0]
+export const BOX_POSITION = [32, -1, 0]
+export const PHOTO_POSITION = [-12.5, 0, 0]
 
 // didn't work when I put it in a separate file
 export const photos = [
