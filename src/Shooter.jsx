@@ -29,7 +29,7 @@ export default function Shooter({ position=[0,0,0], scale=1 }) {
     const unsubscribeShoot = subscribeKeys(
       (state) => state.shoot,
       (value) => {
-        if(value && !bubbleShot && gameState === 'playing') {
+        if(value) {
           shootBubble()
         }
       }
@@ -41,7 +41,7 @@ export default function Shooter({ position=[0,0,0], scale=1 }) {
 
   const bubbleOrigin = [0, -(BOX_HEIGHT / 2) + 2, 0]
   useFrame(()=>{
-    if (bubbleShot) {
+    if (bubbleShot && gameState === 'playing') {
       // move bubble in arrowVector direction
       bubble.current.position.x += arrowVector[0] * 0.5
       bubble.current.position.y += arrowVector[1] * 0.5

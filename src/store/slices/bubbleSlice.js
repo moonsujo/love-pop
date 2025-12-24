@@ -38,7 +38,6 @@ const bubbleSlice = createSlice({
     setBubbleShot(state, action) {
       state.shot = action.payload;
       if (state.shot) {
-        state.gameState = 'playing';
         state.shotsToPenalty += 1;
       }
     },

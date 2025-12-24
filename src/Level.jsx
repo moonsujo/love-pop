@@ -22,6 +22,7 @@ export default function Level({ position=[0,0,0], scale=1 }) {
       boxFrameLeftPosition: [-8 - frameWidth/2, 0, 0],
       boxFrameRightPosition: [8 + frameWidth/2, 0, 0],
       restartButtonScale: [0,0,0],
+      boxPhotoScale: [0, 0, 0]
     }
   }))
 
@@ -67,6 +68,14 @@ export default function Level({ position=[0,0,0], scale=1 }) {
     window.location.reload();
   }
 
+  useEffect(() => {
+    api.start({
+      from: { boxPhotoScale: [0, 0, 0] },
+      to: { boxPhotoScale: [BOX_WIDTH, BOX_HEIGHT, 1] },
+      delay: 500
+    })
+  }, [])
+
   return <group scale={scale} position={position}>
     { bubbles.map((bubbleRow, rowIndex) => (
       bubbleRow.map((bubble, index) => {
@@ -107,7 +116,9 @@ export default function Level({ position=[0,0,0], scale=1 }) {
         <boxGeometry args={ [BOX_WIDTH, frameWidth, 1] } />
         <meshStandardMaterial color="brown" />
       </mesh>
-      <Image url='images/ninja.JPG' scale={[BOX_WIDTH, BOX_HEIGHT, 1]} position={[0, 0, -1]}/>
+      <animated.mesh scale={springs.boxPhotoScale} position={[0, 0, -1]}>
+        <Image url='images/ninja.JPG'/>
+      </animated.mesh>
       <animated.group name='restart' position={[0, 0, 3]} scale={springs.restartButtonScale}>
         <mesh scale={[10, 10, 1]} onPointerEnter={e=>handleRestartPointerEnter(e)} onPointerLeave={e=>handleRestartPointerLeave(e)} onPointerDown={e=>handleRestartPointerDown(e)}>
           <planeGeometry args={[1, 1]}/>
