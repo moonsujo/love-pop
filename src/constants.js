@@ -27,7 +27,7 @@ export const PHOTO_WIDTH = 10
 export const NUM_PHOTO_ROWS = 4
 export const NUM_PHOTO_COLUMNS = 8
 export const PHOTO_X_SPACE = -0.1 * PHOTO_WIDTH // negative value for overlap
-export const BOX_POSITION = [38, 0, 0]
+export const BOX_POSITION = [38, -1, 0]
 export const PHOTO_POSITION = [-10, 0, 0]
 
 // didn't work when I put it in a separate file
@@ -39,7 +39,7 @@ export const photos = [
     { url: "images/flight.JPG", row: 5, col: 4 },
     { url: "images/flowerGarden.JPG", row: 4, col: 4 },
     { url: "images/gogiThe.JPG", row: 5, col: 6 },
-    { url: "images/gogiWrap.JPG", row: 1, col: 2 },
+    { url: "images/museum.JPG", row: 1, col: 2 },
     { url: "images/handHeart.JPG", row: 6, col: 5 },
     { url: "images/hollywoodHalloween.JPG", row: 2, col: 1 },
     { url: "images/iHeartRadio.JPG", row: 8, col: 2 },

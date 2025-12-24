@@ -31,7 +31,8 @@ const bubbleSlice = createSlice({
     numPoppedPhotos: 0,
     gameState: 'playing', // won, lost, playing
     numPenalty: 0,
-    shotsToPenalty: 0
+    shotsToPenalty: 0,
+    letterOpened: false
     // refactor to take in photos from public folder or external source
   },
   reducers: {
@@ -224,10 +225,13 @@ const bubbleSlice = createSlice({
       }
       console.log('game state:', state.gameState);
     },
+    setLetterOpened(state, action) {
+      state.letterOpened = action.payload;
+    }
   }
 })
 
-export const { setBubbleShot, dropBubbles, setArrowVector, setBubblesLoaded, popBubbles, loadNextBubble, attachBubble, addBubbleRow, checkWinCondition } = bubbleSlice.actions;
+export const { setBubbleShot, dropBubbles, setArrowVector, setBubblesLoaded, popBubbles, loadNextBubble, attachBubble, addBubbleRow, checkWinCondition, setLetterOpened  } = bubbleSlice.actions;
 
 export const selectBubbleShot = (state) => state.bubble.shot;
 

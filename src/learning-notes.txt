@@ -18,3 +18,6 @@ add adjacent balls to the queue.
 shift from the front. the order becomes: 1 - all balls around it - all balls around the second one
 track the visited ones. data structure: set, elements: string of "row-column"
 you can use this to revisit the bubbles and remove ones that aren't visited from the [row][column]
+
+DREI:
+Image scale determines resolution. put that to the original image's ratio, and scale a parent to stretch.

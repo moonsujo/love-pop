@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BOX_POSITION, BUBBLE_RADIUS, LEVEL_OFFSET_X, LEVEL_OFFSET_Y, NUM_PHOTO_COLUMNS, NUM_PHOTO_ROWS, PHOTO_HEIGHT, PHOTO_POSITION, PHOTO_WIDTH, PHOTO_X_SPACE, photos } from './constants';
 import { calculatePositionX, calculatePositionY } from './levels/heart';
 import Photo from './Photo';
@@ -6,6 +6,7 @@ import { Text, Text3D } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { setLetterOpened } from './store/slices/bubbleSlice';
 
 
 export default function Photos(props) {
@@ -29,6 +30,7 @@ export default function Photos(props) {
     function SurpriseButton(props) {
         const numPoppedPhotos = useSelector((state) => state.bubble.numPoppedPhotos);
         const gameWon = useSelector((state) => state.bubble.gameState) === 'won';
+        const dispatch = useDispatch();
 
         const { scale } = useSpring({
             scale: numPoppedPhotos === photos.length ? [1, 1, 1] : [0,0,0],
@@ -46,7 +48,7 @@ export default function Photos(props) {
             e.stopPropagation()
             console.log('Surprise button clicked!');
             if (gameWon) {
-                console.log('open letter');
+                dispatch(setLetterOpened(true));
             }
         }
 

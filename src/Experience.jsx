@@ -6,6 +6,7 @@ import Shooter from "./Shooter";
 import Photos from "./Photos";
 import Background from "./Background";
 import { BOX_POSITION } from "./constants";
+import Letter from "./Letter";
 
 export default function Experience() {
 
@@ -16,7 +17,7 @@ export default function Experience() {
         zoom={20}
         position={[0, 0, 20]}
       />
-      <OrbitControls/>
+      {/* <OrbitControls/> */}
       {/* <Perf/>  */}
       <Lights/>
     </group>
@@ -25,6 +26,7 @@ export default function Experience() {
       <Shooter position={BOX_POSITION}/>
       <Photos position={[0, 0, -1]} scale={1}/>
     </group>
-    <Background position={[0, 0, -10]}/>
+    <Letter/>
+    <Background position={[-10, 0, -10]}/>
   </>
 }

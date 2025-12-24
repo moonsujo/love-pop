@@ -44,7 +44,7 @@ export default function Background(props) {
     <group {...props}>
       <Title position={[-45, 15, 0]} />
       <Details position={[-45, 9, 0]} />
-      <group name='gifts-and-tree' position={[23, -24, 0]}>
+      <group name='gifts-and-tree' position={[30, -22, 0]}>
         <ChristmasTree position={[4, 0, 0]} scale={5} />
         <Gift0 position={[0, 0, 0]} scale={11} />
         <Gift1 position={[4, 0, 0]} scale={11} />

@@ -116,9 +116,9 @@ export default function Level({ position=[0,0,0], scale=1 }) {
         <boxGeometry args={ [BOX_WIDTH, frameWidth, 1] } />
         <meshStandardMaterial color="brown" />
       </mesh>
-      <animated.mesh scale={springs.boxPhotoScale} position={[0, 0, -1]}>
+      {/* <animated.mesh scale={springs.boxPhotoScale} position={[0, 0, -1]}>
         <Image url='images/ninja.JPG' scale={[BOX_WIDTH, BOX_HEIGHT, 1]}/>
-      </animated.mesh>
+      </animated.mesh> */}
       <animated.group name='restart' position={[0, -4, 3]} scale={springs.restartButtonScale}>
         <mesh scale={[10, 10, 1]} onPointerEnter={e=>handleRestartPointerEnter(e)} onPointerLeave={e=>handleRestartPointerLeave(e)} onPointerDown={e=>handleRestartPointerDown(e)}>
           <planeGeometry args={[1, 1]}/>
@@ -140,6 +140,21 @@ export default function Level({ position=[0,0,0], scale=1 }) {
           <meshStandardMaterial color={'#e2ffa5'} />
         </Text3D>
       </animated.group>
+      { gameState === 'won' && <Text3D
+        font={'fonts/sriracha.json'}
+        size={3} 
+        height={0.5} 
+        curveSegments={15} 
+        bevelEnabled 
+        bevelThickness={0.03} 
+        bevelSize={0.01} 
+        bevelOffset={0} 
+        bevelSegments={5} 
+        position={[-6, 0, 3]}
+      >
+        Clear!
+        <meshStandardMaterial color={'#b14908'} />
+      </Text3D>}
     </group>
   </group>
 }
