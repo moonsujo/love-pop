@@ -11,6 +11,11 @@ when the bubble is far from the shooter bubble,
 the x distance is near 0. when it's close,
 it's exactly 0. Math.atan(dy/dx) becomes Math.PI/2.
 
+springs:
+add Photo individually into components.
+listen to changes using state.numPopped[index].
+when everything was added under Photos, photos that were popped would animate again.
+
 BFS:
 can be written with a queue and a while loop
 initialize queue with a ball.
@@ -21,3 +26,13 @@ you can use this to revisit the bubbles and remove ones that aren't visited from
 
 DREI:
 Image scale determines resolution. put that to the original image's ratio, and scale a parent to stretch.
+
+shaders:
+snow and hearts were easily written with AI prompts.
+
+Background:
+layer
+backdrop, opacity (black plane filter), mesh, particles
+
+take a break. working for long hours doesn't mean i finish faster.
+if i'm not happy coding, i won't want to do it again. 
