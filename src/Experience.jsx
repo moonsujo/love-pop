@@ -20,7 +20,7 @@ export default function Experience() {
       {/* <Perf/>  */}
       <Lights/>
     </group>
-    <group name='scene' scale={1.3} >
+    <group name='scene' scale={1.3}>
       <Level position={BOX_POSITION}/>
       <Shooter position={BOX_POSITION}/>
       <Photos position={[0, 0, -1]} scale={1}/>

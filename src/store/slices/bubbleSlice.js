@@ -1,7 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { levelHeartBubbles } from "../../levels/heart";
-import { DIRECTIONS_EVEN, DIRECTIONS_ODD, NUM_BUBBLES_EVEN, NUM_BUBBLES_ODD, NUM_BUBBLES_TO_REMOVE, photos, Y_GAP } from "../../constants";
+import { DIRECTIONS_EVEN, DIRECTIONS_ODD, NUM_BUBBLES_EVEN, NUM_BUBBLES_ODD, NUM_BUBBLES_TO_REMOVE, NUM_ROWS_LOST, NUM_SHOTS_PENALTY, photos, Y_GAP } from "../../constants";
 
+function pushBubblesDown(bubbles) {
+  // move all bubbles down by one row in the y axis by the Y_GAP
+  bubbles.map((row, rowIndex) => {
+    bubbles[rowIndex].map((bubble, colIndex) => {
+      if (bubble) {
+        bubbles[rowIndex][colIndex] = { ...bubble, position: { ...bubble.position, y: bubble.position.y - Y_GAP } };
+      }
+    });
+  });
+  return bubbles
+}
+function lostCheck(numRows, numPenalty) {
+  return (numRows + numPenalty) >= NUM_ROWS_LOST;
+}
 const bubbleSlice = createSlice({
   name: 'bubble',
   initialState: {
@@ -11,15 +25,22 @@ const bubbleSlice = createSlice({
     bubblesLoaded: [
       { color: 'red' }, 
       { color: 'pink' }
-    ],
+    ], 
     attachedBubble: { row: null, col: null, color: null },
     photos: photos,
-    numPoppedPhotos: 0
+    numPoppedPhotos: 0,
+    gameState: 'playing', // won, lost, playing
+    numPenalty: 0,
+    shotsToPenalty: 0
     // refactor to take in photos from public folder or external source
   },
   reducers: {
     setBubbleShot(state, action) {
       state.shot = action.payload;
+      if (state.shot) {
+        state.gameState = 'playing';
+        state.shotsToPenalty += 1;
+      }
     },
     setArrowVector(state, action) {
       state.arrowVector = action.payload;
@@ -49,7 +70,7 @@ const bubbleSlice = createSlice({
     },
     attachBubble(state, action) {
       const { attachedRow, attachedCol, attachPosition, attachColor } = action.payload;
-      console.log('ATTACH BUBBLE IN SLICE at row', attachedRow, 'col', attachedCol, 'position', attachPosition, 'color', attachColor);
+      console.log('attaching bubble at', attachedRow, attachedCol, attachPosition, attachColor);
       state.bubbles[attachedRow][attachedCol] = {
         position: { ...attachPosition },
         color: attachColor,
@@ -115,6 +136,7 @@ const bubbleSlice = createSlice({
         state.bubbles[row][col] = null; // remove bubble
         if (poppedBubble.hasPhoto) {
           state.photos[poppedBubble.photoIndex].popped = true
+          state.numPoppedPhotos++;
         }
       }
     },
@@ -163,15 +185,50 @@ const bubbleSlice = createSlice({
             state.bubbles[i][j] = null;
             if (poppedBubble.hasPhoto) {
               state.photos[poppedBubble.photoIndex].popped = true
+              state.numPoppedPhotos++;
             }
           }
         }
       }
-    }
+    },
+    checkWinCondition(state) {
+      let rowCount = 0;
+      for (let i = 1; i < state.bubbles.length; i++) { // skip top row
+        for (let j = 0; j < state.bubbles[i].length; j++) {
+          if (state.bubbles[i][j]) {
+            rowCount++;
+            break
+          }
+        }
+      }
+      console.log('row count and penalty, and shots to penalty:', rowCount + state.numPenalty, state.shotsToPenalty);
+      let won = true
+      for (let i = 1; i < state.bubbles.length; i++) { // skip top row
+        for (let j = 0; j < state.bubbles[i].length; j++) {
+          if (state.bubbles[i][j]) {
+            won = false
+            break
+          }
+        }
+        if (!won) break
+      }
+      if (won) { state.gameState = 'won' }
+      else {
+        state.gameState = 'playing'
+        if (lostCheck(rowCount, state.numPenalty)) { state.gameState = 'lost' }
+        else if (state.shotsToPenalty === NUM_SHOTS_PENALTY) {
+          state.numPenalty += 1;
+          if (lostCheck(rowCount, state.numPenalty)) { state.gameState = 'lost' }
+          state.bubbles = pushBubblesDown(state.bubbles);
+          state.shotsToPenalty = 0;
+        }
+      }
+      console.log('game state:', state.gameState);
+    },
   }
 })
 
-export const { setBubbleShot, dropBubbles, setArrowVector, setBubblesLoaded, popBubbles, loadNextBubble, attachBubble, addBubbleRow,  } = bubbleSlice.actions;
+export const { setBubbleShot, dropBubbles, setArrowVector, setBubblesLoaded, popBubbles, loadNextBubble, attachBubble, addBubbleRow, checkWinCondition } = bubbleSlice.actions;
 
 export const selectBubbleShot = (state) => state.bubble.shot;
 

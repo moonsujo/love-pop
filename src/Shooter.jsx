@@ -2,7 +2,7 @@ import { useKeyboardControls } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { setBubbleShot, setArrowVector, setBubblesLoaded, popBubbles, loadNextBubble, attachBubble, addBubbleRow, dropBubbles } from "./store/slices/bubbleSlice"
+import { setBubbleShot, setArrowVector, setBubblesLoaded, popBubbles, loadNextBubble, attachBubble, addBubbleRow, dropBubbles, checkWinCondition } from "./store/slices/bubbleSlice"
 import { BOX_WIDTH, BOX_HEIGHT, BUBBLE_RADIUS, NUM_BUBBLES_TO_REMOVE } from "./constants"
 import { bubbleMaterials, sphereGeometry } from "./Optimizations"
 import useAttachBubble from "./useAttachBubble"
@@ -14,6 +14,7 @@ export default function Shooter({ position=[0,0,0], scale=1 }) {
   const arrowVector = useSelector((state) => state.bubble.arrowVector)
   const bubbles = useSelector((state) => state.bubble.bubbles)
   const bubblesLoaded = useSelector((state) => state.bubble.bubblesLoaded)
+  const gameState = useSelector((state) => state.bubble.gameState)
   const { attachBubbleLocation } = useAttachBubble()
   const [ subscribeKeys, getKeys ] = useKeyboardControls()
   const bubble = useRef()
@@ -28,7 +29,7 @@ export default function Shooter({ position=[0,0,0], scale=1 }) {
     const unsubscribeShoot = subscribeKeys(
       (state) => state.shoot,
       (value) => {
-        if(value){
+        if(value && !bubbleShot && gameState === 'playing') {
           shootBubble()
         }
       }
@@ -88,6 +89,8 @@ export default function Shooter({ position=[0,0,0], scale=1 }) {
 
               dispatch(popBubbles({ row: attachedRow, col: attachedCol, color: bubblesLoaded[0].color }))
               dispatch(dropBubbles())
+              dispatch(checkWinCondition())
+
               break
             }
           }
@@ -107,6 +110,7 @@ export default function Shooter({ position=[0,0,0], scale=1 }) {
 
       // turn arrow left or right
       const { left, right } = getKeys()
+      if (gameState !== 'playing') return
       if (left) {
         const leftTurnLimit = Math.PI/3
         if (arrow.current.rotation.z < leftTurnLimit) {

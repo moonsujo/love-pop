@@ -1,11 +1,14 @@
 export const BOX_WIDTH = 16
-export const BOX_HEIGHT = 35
+export const BOX_HEIGHT = 32
 export const BUBBLE_RADIUS = 1
 export const Y_GAP = (Math.sin(Math.PI / 3) * 2 * BUBBLE_RADIUS) // vertical gap for close rows
 export const NUM_BUBBLES_TO_REMOVE = 3
 export const COLORS = ['red', 'pink', 'orange', 'purple']
 export const NUM_BUBBLES_EVEN = 8
 export const NUM_BUBBLES_ODD = NUM_BUBBLES_EVEN - 1
+export const NUM_SHOTS_PENALTY = 3
+export const NUM_ROWS_LOST = 16;
+// export const NUM_ROWS_LOST = Math.floor((BOX_HEIGHT - BUBBLE_RADIUS) / Y_GAP);
 export const DIRECTIONS_EVEN = [
   [-1, 1], [0, 1],
   [-1, 0], [1, 0],
@@ -21,9 +24,11 @@ export const LEVEL_OFFSET_Y = (BOX_HEIGHT / 2) - BUBBLE_RADIUS
 
 export const PHOTO_HEIGHT = 10
 export const PHOTO_WIDTH = 10
-export const PHOTO_X_SPACE = -1/9 * PHOTO_WIDTH
+export const NUM_PHOTO_ROWS = 4
+export const NUM_PHOTO_COLUMNS = 8
+export const PHOTO_X_SPACE = -0.1 * PHOTO_WIDTH // negative value for overlap
 export const BOX_POSITION = [38, 0, 0]
-export const PHOTO_POSITION = [-12, 0, 0]
+export const PHOTO_POSITION = [-10, 0, 0]
 
 // didn't work when I put it in a separate file
 export const photos = [
