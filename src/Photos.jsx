@@ -82,7 +82,7 @@ export default function Photos(props) {
                     bevelSize={0.01} 
                     bevelOffset={0} 
                     bevelSegments={5} 
-                    position={[-2.5, 1, 0]}
+                    position={[-3, 1, 0]}
                 >
                     { !gameWon ? `few more\nleft...` : `Open your\nletter!` }
                     <meshStandardMaterial color={'#2bff00'} />

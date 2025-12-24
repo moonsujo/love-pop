@@ -7,7 +7,7 @@ export default function useAttachBubble() {
 
   // row and col are the bubble that was hit
   function attachBubbleLocation(dx, dy, row, col, color) {
-    console.log('bubbles in useAttachBubble', bubbles, 'row, col', row, col);
+    console.log('bubbles in useAttachBubble', bubbles, 'row, col', row, col, 'dx, dy', dx, dy);
     // assign bubble to index in array based on dx dy
     let attachedRow, attachedCol, attachPosition;
     const attachColor = color;
@@ -90,14 +90,16 @@ export default function useAttachBubble() {
       }
     } else if (dx <= 0 && dy <= 0) {
       // quadrant 3
-      if (Math.atan(-dy/-dx) < Math.PI / 6) {
+      console.log('atan', Math.atan(-dy/-dx), "Math.PI/6", Math.PI/6);
+      if (Math.abs(Math.atan(-dy/-dx)) < Math.PI / 6) {
         attachLeft()
       } else {
         attachLeftBottom()
       }
     } else if (dx >= 0 && dy <= 0) {
       // quadrant 4
-      if (Math.atan(-dy/dx) <= Math.PI / 6) {
+      console.log('atan', Math.atan(-dy/dx), "Math.PI/6", Math.PI/6);
+      if (Math.abs(Math.atan(-dy/dx)) <= Math.PI / 6) {
         attachRight()
       } else {
         attachRightBottom()

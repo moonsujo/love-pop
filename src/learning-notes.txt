@@ -7,6 +7,9 @@ react:
 new Array(num_length).fill(null)
 without .fill, it will have 'empty' which is inaccessible.
 example: adding a new row of bubbles
+when the bubble is far from the shooter bubble,
+the x distance is near 0. when it's close,
+it's exactly 0. Math.atan(dy/dx) becomes Math.PI/2.
 
 BFS:
 can be written with a queue and a while loop

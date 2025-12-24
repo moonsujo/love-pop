@@ -71,7 +71,7 @@ export default function Level({ position=[0,0,0], scale=1 }) {
   useEffect(() => {
     api.start({
       from: { boxPhotoScale: [0, 0, 0] },
-      to: { boxPhotoScale: [BOX_WIDTH, BOX_HEIGHT, 1] },
+      to: { boxPhotoScale: [1, 1, 1] },
       delay: 500
     })
   }, [])
@@ -117,9 +117,9 @@ export default function Level({ position=[0,0,0], scale=1 }) {
         <meshStandardMaterial color="brown" />
       </mesh>
       <animated.mesh scale={springs.boxPhotoScale} position={[0, 0, -1]}>
-        <Image url='images/ninja.JPG'/>
+        <Image url='images/ninja.JPG' scale={[BOX_WIDTH, BOX_HEIGHT, 1]}/>
       </animated.mesh>
-      <animated.group name='restart' position={[0, 0, 3]} scale={springs.restartButtonScale}>
+      <animated.group name='restart' position={[0, -4, 3]} scale={springs.restartButtonScale}>
         <mesh scale={[10, 10, 1]} onPointerEnter={e=>handleRestartPointerEnter(e)} onPointerLeave={e=>handleRestartPointerLeave(e)} onPointerDown={e=>handleRestartPointerDown(e)}>
           <planeGeometry args={[1, 1]}/>
           <meshStandardMaterial color='#ba5700'/>
