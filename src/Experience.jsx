@@ -9,16 +9,13 @@ import { BOX_POSITION } from "./constants";
 import Letter from "./Letter";
 import BackgroundImage from "./BackgroundImage";
 import Snow from "./Snow";
+import CustomCamera from "./CustomCamera";
 
 export default function Experience() {
 
   return <>
     <group name='scene-setup'>
-      <OrthographicCamera 
-        makeDefault
-        zoom={20}
-        position={[0, 0, 20]}
-      />
+      <CustomCamera/>
       {/* <OrbitControls/> */}
       {/* <Perf/>  */}
       <Lights/>

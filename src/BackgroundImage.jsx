@@ -62,7 +62,7 @@ export default function BackgroundImage(props) {
         <Title position={[-20, 5, 0]} />
         <Details position={[-20, -4, 0]} />
         {/* <GoodLuck position={[17, -28, 0]} /> */}
-        <mesh name='text-background' scale={[199, 50, 1]} position={[0, 0, 0]}>
+        <mesh name='text-background' scale={[200, 100, 1]} position={[0, 0, 0]}>
           <circleGeometry args={[1, 128]} />
           <meshStandardMaterial color={'#000000'} transparent opacity={0.8} />
         </mesh>
@@ -75,7 +75,7 @@ export default function BackgroundImage(props) {
         <Gift3 position={[2, 0, 5]} scale={20} />
         <Gift4 position={[-15, 0, 3]} scale={15} />
       </group>
-      <Image url='images/christmasBackdrop2.png' scale={[140, 70, 1]} position={[0, 0, -6]} />
+      <Image url='images/christmasBackdrop2.png' scale={[160, 80, 1]} position={[0, 0, -6]} />
       {/* <Image url='images/christmasFrame2.png' scale={[150, 80, 1]} position={[0, 0, 2]} /> */}
     </group>
   )
