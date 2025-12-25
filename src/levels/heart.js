@@ -7,16 +7,16 @@ import { BUBBLE_RADIUS, Y_GAP } from "../constants";
 // select certain bubbles to have bubbles
 // select certain bubbles to have photos
 export const calculatePositionX = (col, isEvenRow) => {
-  if (isEvenRow) {
+  if (isEvenRow) { // number of bubbles is odd
     return col * 2 * BUBBLE_RADIUS + BUBBLE_RADIUS;
   } else {
     return col * 2 * BUBBLE_RADIUS;
   }
 }
 export const calculatePositionY = (row) => {  
-  return (-row + 1) * Y_GAP;
+  return (-row + 1) * Y_GAP; // push one row up for the invisible row
 }
-export const levelHeartBubbles = [
+const levelHeartBubbles = [
   [ 
     { 
       position: { 
@@ -524,3 +524,12 @@ export const levelHeartBubbles = [
     null,
   ],
 ];
+
+const levelHeartInfo = {
+    numShotsToPenalty: 7,
+    bubbles: levelHeartBubbles,
+    colors: ['red', 'pink', 'orange', 'purple'],
+    level: 0
+}
+
+export { levelHeartInfo };

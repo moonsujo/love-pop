@@ -1,17 +1,23 @@
-import { BOX_HEIGHT, BOX_WIDTH, BUBBLE_RADIUS, LEVEL_OFFSET_X, LEVEL_OFFSET_Y, Y_GAP } from "./constants"
-import { useSelector } from "react-redux"
+import { BOX_HEIGHT, BOX_WIDTH, BUBBLE_RADIUS, LEVEL_OFFSET_X, LEVEL_OFFSET_Y, NUM_LEVELS, Y_GAP } from "./constants"
+import { useDispatch, useSelector } from "react-redux"
 import { bubbleMaterials, sphereGeometry } from "./Optimizations"
 import { GiftBowtie } from "./meshes/GiftBowtie"
 import { useSpring, animated } from "@react-spring/three"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Image, Text3D } from "@react-three/drei"
 import Heart from "./Heart"
+import { setLevelState } from "./store/slices/bubbleSlice"
+import { levelRegularInfo } from "./levels/levelRegular"
+import { levelHeartInfo } from "./levels/heart"
+import { levelVaniInfo } from "./levels/levelVani"
 
 export default function Level({ position=[0,0,0], scale=1 }) {
 
   const bubbles = useSelector((state) => state.bubble.bubbles)
   const numPenalty = useSelector((state) => state.bubble.numPenalty)
   const gameState = useSelector((state) => state.bubble.gameState)
+  const level = useSelector((state) => state.bubble.level)
+  const dispatch = useDispatch();
 
   const frameWidth = 1
   const [springs, api] = useSpring(() => ({
@@ -66,7 +72,41 @@ export default function Level({ position=[0,0,0], scale=1 }) {
   function handleRestartPointerDown(e) {
     e.stopPropagation()
     console.log('Restart button clicked!');
-    window.location.reload();
+    console.log('level', level);
+    if (level === 0) {
+      dispatch(setLevelState(levelHeartInfo))
+    } else if (level === 1) {
+      dispatch(setLevelState(levelVaniInfo))
+    // window.location.reload();
+    } else if (level === 2) {
+      dispatch(setLevelState(levelRegularInfo))
+    }
+  }
+
+  const [nextLevelButtonHover, setNextLevelButtonHover] = useState(false)
+  const { nextLevelButtonScale } = useSpring({
+    nextLevelButtonScale: nextLevelButtonHover ? [1.1, 1.1, 1.1] : [1, 1, 1],
+  })
+  function handleNextLevelPointerEnter(e) {
+    e.stopPropagation()
+    document.body.style.cursor = 'pointer';
+    setNextLevelButtonHover(true);
+  }
+  function handleNextLevelPointerLeave(e) {
+    e.stopPropagation()
+    document.body.style.cursor = 'default';
+    setNextLevelButtonHover(false);
+  }
+  function handleNextLevelPointerDown(e) {
+    e.stopPropagation()
+    console.log('Next level button clicked!');
+    console.log('level', level);
+    if (level === 0) {
+      dispatch(setLevelState(levelVaniInfo))
+    } else if (level === 1) {
+      dispatch(setLevelState(levelRegularInfo))
+    // window.location.reload();
+    }
   }
 
   useEffect(() => {
@@ -76,6 +116,8 @@ export default function Level({ position=[0,0,0], scale=1 }) {
       delay: 500
     })
   }, [])
+
+  console.log('bubbles in level render:', bubbles);
 
   return <group scale={scale} position={position}>
     { bubbles.map((bubbleRow, rowIndex) => (
@@ -121,9 +163,6 @@ export default function Level({ position=[0,0,0], scale=1 }) {
         <boxGeometry args={ [BOX_WIDTH, frameWidth, 1] } />
         <meshStandardMaterial color="brown" />
       </mesh>
-      {/* <animated.mesh scale={springs.boxPhotoScale} position={[0, 0, -1]}>
-        <Image url='images/ninja.JPG' scale={[BOX_WIDTH, BOX_HEIGHT, 1]}/>
-      </animated.mesh> */}
       <animated.group name='restart' position={[0, -4, 3]} scale={springs.restartButtonScale}>
         <mesh scale={[10, 10, 1]} onPointerEnter={e=>handleRestartPointerEnter(e)} onPointerLeave={e=>handleRestartPointerLeave(e)} onPointerDown={e=>handleRestartPointerDown(e)}>
           <planeGeometry args={[1, 1]}/>
@@ -141,25 +180,37 @@ export default function Level({ position=[0,0,0], scale=1 }) {
           bevelSegments={5} 
           position={[-3.5, 3, 0]}
         >
-          {`Bebe...\nI wrote a letter\nfor you...\nRestart?`}
+          { level === 0 && `Bebe...\nI wrote a letter\nfor you...\nRestart?`}
+          { level === 1 && `This level\nis hard!\nRestart?`}
           <meshStandardMaterial color={'#e2ffa5'} />
         </Text3D>
       </animated.group>
-      { gameState === 'won' && <Text3D
-        font={'fonts/sriracha.json'}
-        size={2.5} 
-        height={0.5} 
-        curveSegments={15} 
-        bevelEnabled 
-        bevelThickness={0.03} 
-        bevelSize={0.01} 
-        bevelOffset={0} 
-        bevelSegments={5} 
-        position={[-5, 0, 3]}
-      >
-        Clear!
-        <meshStandardMaterial color={'#ea935c'} />
-      </Text3D>}
+      { gameState === 'won' && <animated.group name='clear-button' position={[0, (6 - numPenalty) * Y_GAP, 3]} scale={nextLevelButtonScale}>
+        <mesh scale={[13, 10, 1]} 
+        onPointerEnter={e=>handleNextLevelPointerEnter(e)} 
+        onPointerLeave={e=>handleNextLevelPointerLeave(e)} 
+        onPointerDown={e=>handleNextLevelPointerDown(e)}>
+          <planeGeometry args={[1, 1]}/>
+          <meshStandardMaterial color='#6a3100'/>
+        </mesh>
+        <Text3D
+          font={'fonts/sriracha.json'}
+          size={2.5} 
+          height={0.5} 
+          curveSegments={15} 
+          bevelEnabled 
+          bevelThickness={0.03} 
+          bevelSize={0.01} 
+          bevelOffset={0} 
+          bevelSegments={5} 
+          lineHeight={0.7}
+          position={[-5, 1, 0]}
+        >
+          { level < (NUM_LEVELS - 1) ? `Clear!\nnext` : 'I Love\nYou <3'}
+          {/* it crashes if I enter 'Next' in the string */}
+          <meshStandardMaterial color={'#ea935c'} />
+        </Text3D>
+      </animated.group> }
     </group>
   </group>
 }

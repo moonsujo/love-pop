@@ -40,11 +40,12 @@ export default function Shooter({ position=[0,0,0], scale=1 }) {
   }, [])
 
   const bubbleOrigin = [0, -(BOX_HEIGHT / 2) + 2, 0]
-  useFrame(()=>{
+  useFrame((state, delta)=>{
     if (bubbleShot && gameState === 'playing') {
       // move bubble in arrowVector direction
-      bubble.current.position.x += arrowVector[0] * 0.5
-      bubble.current.position.y += arrowVector[1] * 0.5
+      const speed = 60
+      bubble.current.position.x += arrowVector[0] * speed * delta
+      bubble.current.position.y += arrowVector[1] * speed * delta
 
       // check for collision with walls or other bubbles
       const leftBoundary = -BOX_WIDTH / 2
@@ -111,15 +112,16 @@ export default function Shooter({ position=[0,0,0], scale=1 }) {
       // turn arrow left or right
       const { left, right } = getKeys()
       if (gameState !== 'playing') return
+      const rotationSpeed = 1.2
       if (left) {
         const leftTurnLimit = Math.PI/3
         if (arrow.current.rotation.z < leftTurnLimit) {
-          arrow.current.rotation.z += 0.02
+          arrow.current.rotation.z += rotationSpeed * delta
         }
       } else if (right) {
         const rightTurnLimit = -Math.PI/3
         if (arrow.current.rotation.z > rightTurnLimit) {
-          arrow.current.rotation.z -= 0.02
+          arrow.current.rotation.z -= rotationSpeed * delta
         }
       }
       // get angle based on rotation

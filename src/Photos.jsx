@@ -30,6 +30,7 @@ export default function Photos(props) {
     function SurpriseButton(props) {
         const numPoppedPhotos = useSelector((state) => state.bubble.numPoppedPhotos);
         const gameWon = useSelector((state) => state.bubble.gameState) === 'won';
+        const level = useSelector((state) => state.bubble.level);
         const dispatch = useDispatch();
 
         const { scale } = useSpring({
@@ -47,7 +48,7 @@ export default function Photos(props) {
         function handlePointerDown(e) {
             e.stopPropagation()
             console.log('Surprise button clicked!');
-            if (gameWon) {
+            if (gameWon || level >= 1) {
                 dispatch(setLetterOpened(true));
             }
         }
@@ -86,7 +87,7 @@ export default function Photos(props) {
                     bevelSegments={5} 
                     position={[-3, 1, 0]}
                 >
-                    { !gameWon ? `few more\nleft...` : `Open your\nletter!` }
+                    { level === 0 && !gameWon ? `few more\nleft...` : `Open your\nletter!` }
                     <meshStandardMaterial color={'#2bff00'} />
                 </Text3D>
             </group>

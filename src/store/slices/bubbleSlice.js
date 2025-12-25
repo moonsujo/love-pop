@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { levelHeartBubbles } from "../../levels/heart";
-import { DIRECTIONS_EVEN, DIRECTIONS_ODD, NUM_BUBBLES_EVEN, NUM_BUBBLES_ODD, NUM_BUBBLES_TO_REMOVE, NUM_ROWS_LOST, NUM_SHOTS_PENALTY, photos, Y_GAP } from "../../constants";
+import { levelHeartInfo } from "../../levels/heart";
+import { DIRECTIONS_EVEN, DIRECTIONS_ODD, NUM_BUBBLES_EVEN, NUM_BUBBLES_ODD, NUM_BUBBLES_TO_REMOVE, NUM_LEVELS, NUM_ROWS_LOST, NUM_SHOTS_PENALTY, photos, Y_GAP } from "../../constants";
 
 function pushBubblesDown(bubbles) {
   // move all bubbles down by one row in the y axis by the Y_GAP
@@ -21,18 +21,20 @@ const bubbleSlice = createSlice({
   initialState: {
     shot: false,
     arrowVector: [0, 1, 0],
-    bubbles: levelHeartBubbles,
+    bubbles: levelHeartInfo.bubbles,
     bubblesLoaded: [
       { color: 'red' }, 
       { color: 'pink' }
     ], 
-    attachedBubble: { row: null, col: null, color: null },
     photos: photos,
     numPoppedPhotos: 0,
     gameState: 'playing', // won, lost, playing
     numPenalty: 0,
     shotsToPenalty: 0,
-    letterOpened: false
+    numShotsToPenalty: NUM_SHOTS_PENALTY,
+    letterOpened: false,
+    colors: ['red', 'pink', 'orange', 'purple'],
+    level: 0
     // refactor to take in photos from public folder or external source
   },
   reducers: {
@@ -213,10 +215,11 @@ const bubbleSlice = createSlice({
         if (!won) break
       }
       if (won) { state.gameState = 'won' }
+      // if (won) { state.gameState = 'won'; state.level++; if (state.level >= NUM_LEVELS) { state.level = 0 } }
       else {
         state.gameState = 'playing'
         if (lostCheck(rowCount, state.numPenalty)) { state.gameState = 'lost' }
-        else if (state.shotsToPenalty === NUM_SHOTS_PENALTY) {
+        else if (state.shotsToPenalty === state.numShotsToPenalty) {
           state.numPenalty += 1;
           if (lostCheck(rowCount, state.numPenalty)) { state.gameState = 'lost' }
           state.bubbles = pushBubblesDown(state.bubbles);
@@ -227,11 +230,28 @@ const bubbleSlice = createSlice({
     },
     setLetterOpened(state, action) {
       state.letterOpened = action.payload;
-    }
+    },
+    setLevelState(state, action) {
+      const { bubbles, numShotsToPenalty, colors, level } = action.payload;
+      console.log('setting level state with bubbles:', bubbles, 'colors:', colors);
+      state.bubbles = bubbles;
+      state.numShotsToPenalty = numShotsToPenalty;
+      // reset game state
+      state.gameState = 'playing';
+      state.numPenalty = 0;
+      state.shotsToPenalty = 0;
+      state.colors = colors;
+      state.shot = false;
+      state.level = level
+      state.bubblesLoaded = [
+        { color: colors[Math.floor(Math.random() * colors.length)] }, 
+        { color: colors[Math.floor(Math.random() * colors.length)] }
+      ]
+    },
   }
 })
 
-export const { setBubbleShot, dropBubbles, setArrowVector, setBubblesLoaded, popBubbles, loadNextBubble, attachBubble, addBubbleRow, checkWinCondition, setLetterOpened  } = bubbleSlice.actions;
+export const { setBubbleShot, dropBubbles, setArrowVector, setBubblesLoaded, popBubbles, loadNextBubble, attachBubble, addBubbleRow, checkWinCondition, setLetterOpened, setLevelState } = bubbleSlice.actions;
 
 export const selectBubbleShot = (state) => state.bubble.shot;
 

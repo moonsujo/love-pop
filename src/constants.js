@@ -3,7 +3,6 @@ export const BOX_HEIGHT = 32
 export const BUBBLE_RADIUS = 1
 export const Y_GAP = (Math.sin(Math.PI / 3) * 2 * BUBBLE_RADIUS) // vertical gap for close rows
 export const NUM_BUBBLES_TO_REMOVE = 3
-export const COLORS = ['red', 'pink', 'orange', 'purple']
 export const NUM_BUBBLES_EVEN = 8
 export const NUM_BUBBLES_ODD = NUM_BUBBLES_EVEN - 1
 export const NUM_SHOTS_PENALTY = 7
@@ -29,6 +28,7 @@ export const NUM_PHOTO_COLUMNS = 8
 export const PHOTO_X_SPACE = -0.1 * PHOTO_WIDTH // negative value for overlap
 export const BOX_POSITION = [40, -1, 0]
 export const PHOTO_POSITION = [-10, 0, 0]
+export const NUM_LEVELS = 3
 
 // didn't work when I put it in a separate file
 export const photos = [

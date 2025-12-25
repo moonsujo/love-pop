@@ -4,6 +4,7 @@ const level0Bubbles = [];
 const numRows = 3;
 const numBubblesInEvenRow = 8;
 const numBubblesInOddRow = numBubblesInEvenRow - 1;
+const colors = [ 'red', 'pink', 'orange', 'purple' ];
 for (let i = 0; i < numRows; i++) {
   const row = [];
   const y = i * 2 * BUBBLE_RADIUS;
