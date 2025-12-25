@@ -67,7 +67,7 @@ export default function BackgroundImage(props) {
           <meshStandardMaterial color={'#000000'} transparent opacity={0.8} />
         </mesh>
       </group>
-      <group name='gifts-and-tree' position={[12, -22, -5]}>
+      <group name='gifts-and-tree' position={[20, -22, -5]}>
         <ChristmasTree position={[4, 0, 0]} scale={5} />
         <Gift0 position={[0, 0, 3]} scale={11} />
         <Gift1 position={[1, 0, 3]} scale={11} />
