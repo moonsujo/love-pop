@@ -10,6 +10,7 @@ example: adding a new row of bubbles
 when the bubble is far from the shooter bubble,
 the x distance is near 0. when it's close,
 it's exactly 0. Math.atan(dy/dx) becomes Math.PI/2.
+app takes long to load because of Photos.
 
 springs:
 add Photo individually into components.
@@ -35,4 +36,3 @@ layer
 backdrop, opacity (black plane filter), mesh, particles
 
 take a break. working for long hours doesn't mean i finish faster.
-if i'm not happy coding, i won't want to do it again. 
